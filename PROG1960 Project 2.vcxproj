@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\playground.cpp" />
     <ClCompile Include="src\PROG1960 Project 2.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
