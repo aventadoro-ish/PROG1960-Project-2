@@ -3,6 +3,6 @@
 int main() {
     std::cout << "Class Grouping Project v0.0.1!\n";
 
-    std::cout << "The name's Jenkins. Poopybum Jenkins."
+    std::cout << "The name's Jenkins. Poopybum Jenkins.";
 
 }
