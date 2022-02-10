@@ -21,6 +21,10 @@
   <ItemGroup>
     <ClCompile Include="src\playground.cpp" />
     <ClCompile Include="src\PROG1960 Project 2.cpp" />
+    <ClCompile Include="src\utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="headers\utils.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
