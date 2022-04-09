@@ -1,0 +1,76 @@
+#include "Event.h"
+
+Event::Event() {
+	name = "";
+	hours = 0;
+	
+	for (int i = 0; i < MAX_ATTENDANTS; ++i) {
+		attendants[i] = NULL;
+	}
+
+	currentAttCount = 0;
+
+}
+
+Event::~Event() {
+	//delete[] attendants;	// this: C4154 deletion of an array expression; conversion to pointer supplied
+	//delete[] &attendants; // does not give a warning, but still crashes the program
+
+	for (int i = 0; i < currentAttCount; ++i) {
+		delete attendants[i];
+	}
+}
+
+
+std::string Event::getName() const {
+	return name;
+}
+
+void Event::setName(std::string name) {
+	this->name = name;
+}
+
+int Event::getHours() const {
+	return hours;
+}
+
+void Event::setHours(int hours) {
+	this->hours = hours;
+}
+
+Attendant* Event::getAttendatnsPtr() {
+	return *attendants;
+}
+
+std::string Event::getAttendantNamesStr() const {
+	std::string out = attendants[0]->getName();
+	for (int i = 1; i < currentAttCount; ++i) {
+		out += " " + attendants[i]->getName();
+	}
+	
+	return out;
+}
+
+
+void Event::appendAttendant(const Attendant& att) {
+	if (currentAttCount >= MAX_ATTENDANTS) {
+		std::string errMessage = "Attendant Limit reached for event" + this->name + ", while adding attendant" + att.strRepr();
+		throw errMessage; // TODO: exception - change to custom when it is implemented
+	}
+	
+	Attendant* newAtt = new Attendant;
+
+	newAtt->setName(att.getName());
+	newAtt->setParticipantCount(att.getParticipantCount());
+
+	attendants[currentAttCount] = newAtt;
+	++currentAttCount;
+}
+
+
+std::ostream& operator<<(std::ostream& out_stream, const Event& evt) {
+	out_stream << "Event:" << evt.getName() << " (" << evt.getHours() << "h): " << evt.getAttendantNamesStr();
+	return out_stream;
+}
+
+
