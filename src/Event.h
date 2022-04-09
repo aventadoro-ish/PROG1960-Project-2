@@ -22,12 +22,12 @@ public:
 	int getHours() const;
 	void setHours(int hours);
 
+	int getCurrentAttCount() const;
+
 	Attendant* getAttendatnsPtr();
 	std::string getAttendantNamesStr() const;
 
 	void appendAttendant(const Attendant& att);
-
-	
 
 };
 

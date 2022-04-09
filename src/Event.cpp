@@ -43,6 +43,10 @@ Attendant* Event::getAttendatnsPtr() {
 }
 
 std::string Event::getAttendantNamesStr() const {
+	if (currentAttCount == 0) {
+		return "/nobody/";
+	}
+
 	std::string out = attendants[0]->getName();
 	for (int i = 1; i < currentAttCount; ++i) {
 		out += " " + attendants[i]->getName();
@@ -73,4 +77,8 @@ std::ostream& operator<<(std::ostream& out_stream, const Event& evt) {
 	return out_stream;
 }
 
+
+int Event::getCurrentAttCount() const {
+    return currentAttCount;
+}
 
