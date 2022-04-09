@@ -26,13 +26,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\playground.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="headers\playground.h">
+    <ClInclude Include="src\playground.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
