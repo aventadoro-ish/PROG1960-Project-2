@@ -37,33 +37,26 @@ RoomType charToRoomType(char c) {
     }
 }
 
-std::string Room::getName() const
-{
+std::string Room::getName() const {
     return name;
 }
 
-void Room::setName(std::string name)
-{
+void Room::setName(std::string name) {
     this->name = name;
 }
 
-int Room::getSeats() const
-{
+int Room::getSeats() const {
     return seats;
 }
 
-void Room::setSeats(int seats)
-{
+void Room::setSeats(int seats) {
     this->seats = seats;
 }
 
-RoomType Room::getType() const
-{
+RoomType Room::getType() const {
     return type;
 }
 
-void Room::setType(RoomType type)
-{
+void Room::setType(RoomType type) {
     this->type = type;
 }
-
