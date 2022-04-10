@@ -1,6 +1,7 @@
 #pragma once
 #include "utils.h"
 #include "Attendant.h"
+#include "Room.h"
 
 class Event;
 std::ostream& operator<<(std::ostream& out_stream, const Event& evt);
@@ -11,6 +12,7 @@ private:
 	int hours;
 	Attendant* attendants[MAX_ATTENDANTS];
 	int currentAttCount;
+	RoomType roomReq;
 
 public:
 	Event();
@@ -30,6 +32,10 @@ public:
 	void appendAttendant(const Attendant&);
 	void appendAttendant(std::string, int);
 	Attendant* getAttendant(int idx) const;
+
+    RoomType getRoomReq() const;
+    void setRoomReq(RoomType roomReq);
+
 };
 
 

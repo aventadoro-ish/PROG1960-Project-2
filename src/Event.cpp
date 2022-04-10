@@ -99,3 +99,12 @@ Attendant* Event::getAttendant(int idx) const {
 	return attendants[idx];
 
 }
+
+RoomType Event::getRoomReq() const {
+    return roomReq;
+}
+
+void Event::setRoomReq(RoomType roomReq) {
+    this->roomReq = roomReq;
+}
+
