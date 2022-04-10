@@ -1,14 +1,8 @@
 #pragma once
 #include "CSV.h"
 #include "Event.h"
-enum {
-	NAME,
-	HOURS,
-	CLASSTYPE,
-	TEACHER
-};
 
-class Pairings : public CSV {
+class Pairings : private CSV {
 private:
 	Event* eventList;
 	int numEvents;
@@ -22,7 +16,8 @@ public:
 	~Pairings();
 
 	void initEventList();
+	void initEventList(int x);
 	void assignFromCSV();
-	
+	int isTeacher(std::string*, int);
 
 };

@@ -1,17 +1,15 @@
 #include "CSV.h"
 #define NPOS -1
-
-
+#define BLANK_LINE buffer.find_first_not_of(' ', ref) == NPOS
+#define LAST_CELL 2
 
 CSV::CSV(){
 	fileName = "NO FILE NAME ASSIGNED";
 }
+
 CSV::CSV(std::string fileExt) {
 	setFileName(fileExt);
 }
-
-
-
 
 CSV::~CSV() {
 	for (int i = rowCount-1; i >= 0; i--) {
@@ -20,11 +18,13 @@ CSV::~CSV() {
 	delete[] arr;
 }
 
+
 std::string CSV::getFileName() { return fileName; }
 
 std::string CSV::getArrVal(int x, int y) {
 	return arr[x][y];
 }
+
 std::string* CSV::getRowData(int x) {
 	return arr[x];
 }
@@ -41,25 +41,59 @@ void CSV::setArrVal(int x, int y, std::string data) {
 
 
 
-bool CSV::importCSV(){
+bool CSV::importCSV() {
 	std::ifstream file;
 	std::string buffer;
+	std::string temp;
 	int pos = 0;
 	int ref = 0;
+	int flag = 0;
 
 
 	if (initArr(file) == false) return false;
 
 	file.open(fileName);
+	if (!file.is_open()) {
+		std::cout << "Error Opening File: " << fileName << std::endl;
+		return false;
+	}
 
 	for (int x = 0; x < rowCount; x++) {
+		ref = 0;
+		flag = 0;
 		std::getline(file, buffer);
-
-		//Detect Blank Lines
-		if ((buffer.size() == 0)) {
+		if ((BLANK_LINE)) {
 			x--;
 			continue;
 		}
+
+		//Experimental Algorithm -- Needs Cleaned Up/Whitespace removal feature
+		// 
+		//for (int y = 0; y < colCount; y++) {
+		//	if (flag == LAST_CELL) {
+		//		arr[x][y] = "";
+		//		continue;
+		//	}
+		//	if (buffer.find_first_of(',', ref) != NPOS) {
+		//		pos = (buffer.find_first_of(',', ref));
+		//		temp = buffer.substr(ref, (pos-ref));
+		//		ref += temp.size() + 1;
+		//		arr[x][y] = temp;
+		//		std::cout << arr[x][y];
+		//		temp.erase();
+		//	}
+		//	else
+		//	{
+		//		flag = LAST_CELL; 
+		//		arr[x][y] = buffer.substr(ref);
+		//		std::cout << arr[x][y];
+		//		continue;
+		//	}
+		//}
+		//std::cout << std::endl;
+		//}
+
+
 		//Import Info
 		for (int y = 0; y < colCount; y++) {
 			if ((pos = buffer.find_first_of(",")) != NPOS) {
@@ -73,11 +107,10 @@ bool CSV::importCSV(){
 			else {
 				arr[x][y] = "";
 			}
-
 		}
+		file.close();
 	}
-	file.close();
-	}
+}
 bool CSV::initArr(std::ifstream& file) {
 
 	file.open(fileName);

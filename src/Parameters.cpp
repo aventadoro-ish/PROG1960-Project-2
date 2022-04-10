@@ -16,8 +16,7 @@ void Parameters::assignFromCSV() {
     std::string* buffer;
     int dayOfWeek;
     
-
-    index = (findRooms() + 1);
+    index = (findMatchingIndex("rooms") + 1);
     while (true) {
        buffer = getRowData(index);
        if (buffer[1] == "") break;
@@ -26,8 +25,7 @@ void Parameters::assignFromCSV() {
        index++;
     }
 
-
-    index = (findOph() + 1);
+    index = (findMatchingIndex("oph") + 1);
     while (true) {
         buffer = getRowData(index);
         if (buffer[1] == "") break;
@@ -36,47 +34,23 @@ void Parameters::assignFromCSV() {
         oph.setEndTime(dayOfWeek, stoi(buffer[2]));
         index++;
     }
-
-
     //-------------------------------//
     // ADD NEWINFO ONCE STANDARDIZED //
     //-------------------------------//
     
 }
-int Parameters::findRooms(){
-    std::string rooms = "rooms";
-    char* target;
-    for (int i = 0; i < getRowCount(); i++) {
-        target = sToLower(getArrVal(i, 0));
-        if (rooms.compare(target) == 0) {
-            return i;
-        }
-    }
-    return -1;
-}
-int Parameters::findOph(){
-    std::string oph = "work days";
-    char* target;
-    for (int i = 0; i < getRowCount(); i++) {
-        target = sToLower(getArrVal(i,0));
-        if (oph.compare(target) == 0) {
-            return i;
-        }
-    }
-    return -1;
-}
-int Parameters::findNewInfo(){
-    std::string newInfo = "new info";
-    char* target;
-    for (int i = 0; i < getRowCount(); i++) {
-        target = sToLower(getArrVal(i, 0));
-        if (newInfo.compare(target) == 0) {
-            return i;
-        }
-    }
-    return -1;
-}
 
+
+int Parameters::findMatchingIndex(std::string heading) {
+    char* target;
+    for (int i = 0; i < getRowCount(); i++) {
+        target = sToLower(getArrVal(i, 0));
+        if (heading.compare(target) == 0) {
+            return i;
+        }
+    }
+    return -1;
+}
 
 
 OpHours Parameters::getOph() const {

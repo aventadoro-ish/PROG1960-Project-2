@@ -25,9 +25,7 @@ public:
 	~Parameters();
 
 	void assignFromCSV();
-	int findRooms();
-	int findOph();
-	int findNewInfo();
+	int findMatchingIndex(std::string);
 
 
     OpHours getOph() const;
