@@ -1,5 +1,6 @@
 #pragma once
 #include "utils.h"
+#include <fstream>
 
 
 class CSV : private std::ofstream {
