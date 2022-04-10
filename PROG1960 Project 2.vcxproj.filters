@@ -24,12 +24,15 @@
     <ClCompile Include="src\playground.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Event.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\playground.h">
+    <ClInclude Include="src\Event.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
