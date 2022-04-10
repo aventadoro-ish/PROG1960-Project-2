@@ -8,10 +8,9 @@ private:
 	int numEvents;
 
 public:
-	Pairings();
+	Pairings(int);
 	Pairings(std::string fileExt) : CSV(fileExt) {
 		importCSV();
-		
 	}
 	~Pairings();
 
