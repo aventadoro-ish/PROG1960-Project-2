@@ -26,7 +26,7 @@ public:
 
 	int getCurrentAttCount() const;
 
-	Attendant* getAttendatnsPtr();
+	Attendant** getAttendatnsPtr() ;
 	std::string getAttendantNamesStr() const;
 
 	void appendAttendant(const Attendant&);

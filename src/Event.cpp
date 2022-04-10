@@ -37,8 +37,8 @@ void Event::setHours(int hours) {
 	this->hours = hours;
 }
 
-Attendant* Event::getAttendatnsPtr() {
-	return *attendants;
+Attendant** Event::getAttendatnsPtr()  {
+	return attendants;
 }
 
 std::string Event::getAttendantNamesStr() const {
@@ -72,6 +72,7 @@ void Event::appendAttendant(std::string name, int partCount) {
 		std::string errMessage = "Attendant Limit reached for event" + this->name + ", while adding attendant" + name;
 		throw errMessage; // TODO: exception - change to custom when it is implemented
 	}
+	attendants[currentAttCount] = new Attendant(name, partCount);
 
 	attendants[currentAttCount]->setName(name);
 	attendants[currentAttCount]->setParticipantCount(partCount);

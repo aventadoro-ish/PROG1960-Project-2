@@ -36,6 +36,9 @@ public:
 
 	void appendRoom(const Room& r);
 
+	Room** getRoomsPtr();
+	int getRoomNumber();
+
 	void testPrintParams();
 };
 

@@ -77,6 +77,14 @@ void Parameters::appendRoom(const Room& r) {
 
 }
 
+Room** Parameters::getRoomsPtr() {
+    return rooms;
+}
+
+int Parameters::getRoomNumber() {
+    return nRooms;
+}
+
 int Parameters::getMaxClassLength() const
 {
     return maxClassLength;

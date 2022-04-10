@@ -17,6 +17,11 @@ enum class RoomType {
  * else -> RoomType::NULL_ROOM
  */
 RoomType charToRoomType(char c);
+std::string roomTypeToString(RoomType rt);
+
+class Room;
+
+std::ostream& operator<<(std::ostream& out_stream, const Room& r);
 
 class Room {
 private:

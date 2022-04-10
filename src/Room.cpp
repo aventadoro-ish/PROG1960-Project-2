@@ -1,5 +1,35 @@
 #include "Room.h"
 
+
+RoomType charToRoomType(char c) {
+	c |= 0b00100000; // decapitalize
+
+	switch (c) {
+	case 'l': return RoomType::LECTURE_HALL;
+	case 't': return RoomType::TECH_LAB;
+	case 'c': return RoomType::COMPUTER_LAB;
+	case 's': return RoomType::SPORTS_HALL;
+	default:
+		return RoomType::NULL_ROOM;
+	}
+}
+
+std::string roomTypeToString(RoomType rt) {
+	switch (rt) {
+	case RoomType::LECTURE_HALL:return "Lecture Hall";
+	case RoomType::TECH_LAB:	return "Tech Lab";
+	case RoomType::COMPUTER_LAB:return "Computer Lab";
+	case RoomType::SPORTS_HALL:	return "Sports Hall";
+	default:					return "Null Room";
+	}
+
+}
+
+std::ostream& operator<<(std::ostream& out_stream, const Room& r) {
+	out_stream << "Room \"" << r.getName() << "\" (" << roomTypeToString(r.getType()) << ") seats: " << r.getSeats();
+	return out_stream;
+}
+
 Room::Room() {
 	name = "-";
 	seats = 0;
@@ -19,21 +49,8 @@ Room::Room(std::string name, int seats, char typeChar) {
 }
 
 Room::~Room() {
+	std::cout << "~room" << std::endl;
 
-}
-
-
-RoomType charToRoomType(char c) {
-	c |= 0b00100000; // decapitalize
-
-	switch (c) {
-	case 'l': return RoomType::LECTURE_HALL;
-	case 't': return RoomType::TECH_LAB;
-	case 'c': return RoomType::COMPUTER_LAB;
-	case 's': return RoomType::SPORTS_HALL;
-	default:
-		return RoomType::NULL_ROOM;
-	}
 }
 
 std::string Room::getName() const {
