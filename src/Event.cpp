@@ -15,7 +15,6 @@ Event::Event() {
 Event::~Event() {
 	//delete[] attendants;	// this: C4154 deletion of an array expression; conversion to pointer supplied
 	//delete[] &attendants; // does not give a warning, but still crashes the program
-
 	for (int i = 0; i < currentAttCount; ++i) {
 		delete attendants[i];
 	}
@@ -59,15 +58,11 @@ std::string Event::getAttendantNamesStr() const {
 void Event::appendAttendant(const Attendant& att) {
 	if (currentAttCount >= MAX_ATTENDANTS) {
 		std::string errMessage = "Attendant Limit reached for event" + this->name + ", while adding attendant" + att.strRepr();
-		throw errMessage; // TODO: exception - change to custom when it is implemented
+		throw std::exception(errMessage.c_str()); // TODO: exception - change to custom when it is implemented
 	}
-	
-	Attendant* newAtt = new Attendant;
+	attendants[currentAttCount] = new Attendant(att.getName(), att.getParticipantCount());
 
-	newAtt->setName(att.getName());
-	newAtt->setParticipantCount(att.getParticipantCount());
 
-	attendants[currentAttCount] = newAtt;
 	++currentAttCount;
 }
 
