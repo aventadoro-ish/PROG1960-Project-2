@@ -36,6 +36,18 @@ RoomType charToRoomType(char c) {
 	}
 }
 
+std::string roomTypeToString(RoomType rt) {
+	switch (rt) {
+	case RoomType::LECTURE_HALL:return "Lecture Hall";
+	case RoomType::TECH_LAB:	return "Tech Lab";
+	case RoomType::COMPUTER_LAB:return "Computer Lab";
+	case RoomType::SPORTS_HALL:	return "Sports Hall";
+	default:					return "Null Room";
+	}
+
+}
+
+
 std::string Room::getName() const {
 	return name;
 }
