@@ -6,6 +6,7 @@ class Pairings : private CSV {
 private:
 	Event* eventList;
 	int numEvents;
+	int numAttendants = 0;
 
 public:
 	Pairings(int);
@@ -19,7 +20,7 @@ public:
 	//Supporting Import Functions
 	void initEventList();
 	void initEventList(int x);
-	void assignAttendants(std::string*);
+	void assignAttendants(std::string*, int);
 	int isTeacher(std::string*, int);
 
 

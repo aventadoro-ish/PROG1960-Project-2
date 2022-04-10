@@ -144,7 +144,6 @@ void CSV::countArrDimensions(std::ifstream& file) {
 			tempColCount = 0;
 		}
 	}
-	colCount++;
 }
 
 
