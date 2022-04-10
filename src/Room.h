@@ -38,5 +38,6 @@ public:
 
 	RoomType getType() const;
 	void setType(RoomType type);
+	void setType(std::string);
 
 };

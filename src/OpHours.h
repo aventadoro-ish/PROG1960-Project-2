@@ -19,4 +19,7 @@ public:
 
 	DaysOfWeek getNthHourDayOfWeek(int n) const;
 
+	void setStartTime(int, int);
+	void setEndTime(int, int);
+
 };

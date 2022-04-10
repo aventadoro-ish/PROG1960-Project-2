@@ -1,6 +1,11 @@
 #include "CSV.h"
 #define NPOS -1
 
+
+
+CSV::CSV(){
+	fileName = "NO FILE NAME ASSIGNED";
+}
 CSV::CSV(std::string fileExt) {
 	setFileName(fileExt);
 }
@@ -36,7 +41,7 @@ void CSV::setArrVal(int x, int y, std::string data) {
 
 
 
-bool CSV::importCsv(){
+bool CSV::importCSV(){
 	std::ifstream file;
 	std::string buffer;
 	int pos = 0;

@@ -37,6 +37,8 @@
     <ClInclude Include="src\CSV.h" />
     <ClInclude Include="src\Event.h" />
     <ClInclude Include="src\OpHours.h" />
+    <ClInclude Include="src\Pairings.h" />
+    <ClInclude Include="src\Parameters.h" />
     <ClInclude Include="src\playground.h" />
     <ClInclude Include="src\Room.h" />
     <ClInclude Include="src\Scheduler.h" />

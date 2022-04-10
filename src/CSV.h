@@ -11,6 +11,7 @@ private:
 	int colCount = 1;
 
 public:
+	CSV();
 	CSV(std::string);
 	~CSV();
 
@@ -25,13 +26,13 @@ public:
 	void setRowCount(int);
 	void setColCount(int);
 	void setArrVal(int, int, std::string);
-	
 
-	bool importCsv();
+	bool importCSV();
 	void countArrDimensions(std::ifstream&);
 	bool initArr(std::ifstream&);
-	
 	void printArr();
+
+	/*virtual void assignFromCSV();*/
 
 };
 

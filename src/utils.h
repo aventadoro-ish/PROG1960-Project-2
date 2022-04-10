@@ -21,3 +21,7 @@ enum class DaysOfWeek {
 
 std::string daysOfWeekToStr(DaysOfWeek d);
 DaysOfWeek intToDaysOfWeek(int d);
+int dowStrToInt(std::string d);
+
+
+char* sToLower(std::string);//Lowercase Strings
