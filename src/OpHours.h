@@ -6,6 +6,7 @@ private:
 	int startTimes[7];
 	int endTimes[7];
 public:
+	OpHours();
 	OpHours(int start[7], int end[7]);
 	~OpHours();
 

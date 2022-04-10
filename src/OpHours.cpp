@@ -1,5 +1,12 @@
 #include "OpHours.h"
 
+OpHours::OpHours() {
+	for (int i = 0; i < 7; ++i) {
+		startTimes[i] = 0;
+		endTimes[i] = 0;
+	}
+}
+
 OpHours::OpHours(int start[7], int end[7]) {
 	for (int i = 0; i < 7; ++i) {
 		startTimes[i] = start[i];
@@ -43,7 +50,7 @@ DaysOfWeek OpHours::getNthHourDayOfWeek(int n) const {
 		hPass += getTotalHoursOnDay(i);
 
 		if (hPass >= n) {
-			return intToDaysOfWeek(n);
+			return intToDaysOfWeek(i);
 		}
 	}
 

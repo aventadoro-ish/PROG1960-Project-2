@@ -2,11 +2,11 @@
 #include "utils.h"
 
 enum class RoomType {
-    NULL_ROOM,
-    LECTURE_HALL,
-    TECH_LAB,
-    COMPUTER_LAB,
-    SPORTS_HALL
+	NULL_ROOM,
+	LECTURE_HALL,
+	TECH_LAB,
+	COMPUTER_LAB,
+	SPORTS_HALL
 };
 
 /* Works with both upper and lower case letters
@@ -22,21 +22,21 @@ class Room {
 private:
 	std::string name;
 	int seats;
-    RoomType type;
+	RoomType type;
 
 public:
-    Room();
-    Room(std::string name, int seats, RoomType type);
-    Room(std::string name, int seats, char typeChar);
-    ~Room();
+	Room();
+	Room(std::string name, int seats, RoomType type);
+	Room(std::string name, int seats, char typeChar);
+	~Room();
 
-    std::string getName() const;
-    void setName(std::string name);
+	std::string getName() const;
+	void setName(std::string name);
 
-    int getSeats() const;
-    void setSeats(int seats);
+	int getSeats() const;
+	void setSeats(int seats);
 
-    RoomType getType() const;
-    void setType(RoomType type);
+	RoomType getType() const;
+	void setType(RoomType type);
 
 };

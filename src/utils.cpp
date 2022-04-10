@@ -22,6 +22,6 @@ DaysOfWeek intToDaysOfWeek(int d) {
 	case 4: return DaysOfWeek::FRI;
 	case 5: return DaysOfWeek::SAT;
 	case 6: return DaysOfWeek::SUN;
-	default: throw "Invalid Day of week index" + d;
+	default: throw std::exception("Invalid Day of week index" + d);
 	}
 }
