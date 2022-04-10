@@ -16,4 +16,6 @@ public:
     void setParam(Parameters param);
 
 	void appendEvent(const Event& e);
+
+	void generateSchedule(int shuffleSeed);
 };
