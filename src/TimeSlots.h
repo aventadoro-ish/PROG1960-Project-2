@@ -11,6 +11,7 @@ private:
 	Room* room;
 	Attendant* attendants[MAX_ATTENDANTS];
     int currentAttCount;
+    bool isOcc;
 
 public:
     TimeSlot();
@@ -28,11 +29,13 @@ public:
 
     Attendant* getAttendantsPtr() const;
 
+    bool isOccupied();
+
 };
 
 class TimeSlotManager {
 private:
-    TimeSlot** slots[7];
+    TimeSlot* * * slots;
     Room* rooms;
 
     int nRooms;
@@ -43,7 +46,5 @@ private:
 public:
     TimeSlotManager(Room rooms[], int nRooms, const OpHours& opHours);
     ~TimeSlotManager();
-
-    TimeSlot* getTimeSlot(int day, int hour, Room* room);
 
 };

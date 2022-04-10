@@ -7,6 +7,7 @@ TimeSlot::TimeSlot() {
 	startTime = 0;
 	day = DaysOfWeek::MON;
 	room = NULL;
+	isOcc = false;
 
 	for (int i = 0; i < MAX_ATTENDANTS; ++i) {
 		attendants[i] = NULL;
@@ -20,6 +21,8 @@ TimeSlot::TimeSlot(int startTime, DaysOfWeek dow, Room* room) {
 	this->startTime = startTime;
 	day = dow;
 	this->room = room;
+	isOcc = false;
+
 
 	for (int i = 0; i < MAX_ATTENDANTS; ++i) {
 		attendants[i] = NULL;
@@ -64,6 +67,11 @@ Attendant* TimeSlot::getAttendantsPtr() const{
 	return *attendants;
 }
 
+bool TimeSlot::isOccupied() {
+	return isOcc;
+}
+
+
 
 /********************************************************************/
 /*                      class TimeSlotManager()                     */
@@ -76,24 +84,24 @@ TimeSlotManager::TimeSlotManager(Room rooms[], int nRooms, const OpHours& opHour
 	
 	nTimeSlots = nHours * nRooms;
 
-	for (int nthHour = 0; nthHour <= nHours; ++nthHour) {
-		slots[nthHour] = new TimeSlot * [nRooms];
-
+	slots = new TimeSlot * *[nHours];
+	for (int h = 0; h < nHours; ++h) {
+		slots[h] = new TimeSlot * [nRooms];
 		for (int r = 0; r < nRooms; ++r) {
-			slots[nthHour][r] = new TimeSlot(nthHour, opHours.getNthHourDayOfWeek(nthHour), &rooms[r]);
+				slots[h][r] = new TimeSlot(h, opHours.getNthHourDayOfWeek(h), &rooms[r]);
 		}
-
 	}
-
 
 
 
 }
 
 TimeSlotManager::~TimeSlotManager() {
-
-}
-
-TimeSlot* TimeSlotManager::getTimeSlot(int day, int hour, Room* room) {
-	return NULL; // TODO: fix
+	for (int h = 0; h < nHours; ++h) {
+		for (int r = 0; r < nRooms; ++r) {
+			delete slots[h][r];
+		}
+		delete slots[h];
+	}
+	delete slots;
 }
