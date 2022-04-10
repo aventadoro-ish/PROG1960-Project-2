@@ -72,6 +72,18 @@ void Event::appendAttendant(const Attendant& att) {
 }
 
 
+void Event::appendAttendant(std::string name, int partCount) {
+	if (currentAttCount >= MAX_ATTENDANTS) {
+		std::string errMessage = "Attendant Limit reached for event" + this->name + ", while adding attendant" + name;
+		throw errMessage; // TODO: exception - change to custom when it is implemented
+	}
+
+	attendants[currentAttCount]->setName(name);
+	attendants[currentAttCount]->setParticipantCount(partCount);
+
+	++currentAttCount;
+}
+
 std::ostream& operator<<(std::ostream& out_stream, const Event& evt) {
 	out_stream << "Event:" << evt.getName() << " (" << evt.getHours() << "h): " << evt.getAttendantNamesStr();
 	return out_stream;

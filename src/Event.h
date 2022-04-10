@@ -27,7 +27,8 @@ public:
 	Attendant* getAttendatnsPtr();
 	std::string getAttendantNamesStr() const;
 
-	void appendAttendant(const Attendant& att);
+	void appendAttendant(const Attendant&);
+	void appendAttendant(std::string, int);
 	Attendant* getAttendant(int idx) const;
 };
 

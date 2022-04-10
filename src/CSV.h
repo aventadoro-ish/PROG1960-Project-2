@@ -24,6 +24,7 @@ public:
 	void setFileName(std::string);
 	void setRowCount(int);
 	void setColCount(int);
+	void setArrVal(int, int, std::string);
 	
 
 	bool importCsv();

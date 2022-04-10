@@ -29,6 +29,9 @@ int CSV::getColCount()const { return colCount; }
 void CSV::setFileName(std::string newName) {fileName = newName;}
 void CSV::setRowCount(int x) { rowCount = x; }
 void CSV::setColCount(int y) { colCount = y; }
+void CSV::setArrVal(int x, int y, std::string data) {
+	arr[x][y] = data;
+}
 
 
 
@@ -84,7 +87,6 @@ bool CSV::initArr(std::ifstream& file) {
 	for (int i = 0; i < rowCount; i++) {
 		arr[i] = new std::string[colCount];
 	}
-
 }
 void CSV::countArrDimensions(std::ifstream& file) {
 	int tempColCount = 1;

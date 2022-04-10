@@ -28,7 +28,7 @@ void Attendant::setName(std::string name) {
 }
 
 int Attendant::getParticipantCount() const {
-    return ;
+    return participantCount;
 }
 
 void Attendant::setParticipantCount(int participantCount) {
