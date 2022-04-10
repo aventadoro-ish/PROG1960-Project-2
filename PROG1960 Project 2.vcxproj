@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Attendant.cpp" />
+    <ClCompile Include="src\CSV.cpp" />
     <ClCompile Include="src\Event.cpp" />
     <ClCompile Include="src\playground.cpp" />
     <ClCompile Include="src\PROG1960 Project 2.cpp" />
@@ -31,6 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Attendant.h" />
+    <ClInclude Include="src\CSV.h" />
     <ClInclude Include="src\Event.h" />
     <ClInclude Include="src\OpHours.h" />
     <ClInclude Include="src\playground.h" />
