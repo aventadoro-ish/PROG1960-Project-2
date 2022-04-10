@@ -2,6 +2,7 @@
 #include "utils.h"
 #include "Room.h"
 #include "Attendant.h"
+#include "OpHours.h"
 
 class TimeSlot {
 private:
@@ -30,5 +31,19 @@ public:
 };
 
 class TimeSlotManager {
+private:
+    TimeSlot** slots[7];
+    Room* rooms;
+
+    int nRooms;
+    int nHours;
+    int nTimeSlots;
+
+
+public:
+    TimeSlotManager(Room rooms[], int nRooms, const OpHours& opHours);
+    ~TimeSlotManager();
+
+    TimeSlot* getTimeSlot(int day, int hour, Room* room);
 
 };

@@ -1,5 +1,8 @@
 #include "TimeSlots.h"
 
+/********************************************************************/
+/*                      class TimeSlot()                            */
+/********************************************************************/
 TimeSlot::TimeSlot() {
 	startTime = 0;
 	day = DaysOfWeek::MON;
@@ -61,3 +64,36 @@ Attendant* TimeSlot::getAttendantsPtr() const{
 	return *attendants;
 }
 
+
+/********************************************************************/
+/*                      class TimeSlotManager()                     */
+/********************************************************************/
+TimeSlotManager::TimeSlotManager(Room rooms[], int nRooms, const OpHours& opHours) {
+	this->rooms = rooms;
+	
+	nHours = opHours.getTotalHours();
+	this->nRooms = nRooms;
+	
+	nTimeSlots = nHours * nRooms;
+
+	for (int nthHour = 0; nthHour <= nHours; ++nthHour) {
+		slots[nthHour] = new TimeSlot * [nRooms];
+
+		for (int r = 0; r < nRooms; ++r) {
+			slots[nthHour][r] = new TimeSlot(nthHour, opHours.getNthHourDayOfWeek(nthHour), &rooms[r]);
+		}
+
+	}
+
+
+
+
+}
+
+TimeSlotManager::~TimeSlotManager() {
+
+}
+
+TimeSlot* TimeSlotManager::getTimeSlot(int day, int hour, Room* room) {
+	return NULL; // TODO: fix
+}

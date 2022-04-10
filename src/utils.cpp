@@ -12,3 +12,16 @@ std::string daysOfWeekToStr(DaysOfWeek d) {
 	default: return "---";
 	}
 }
+
+DaysOfWeek intToDaysOfWeek(int d) {
+	switch (d) {
+	case 0: return DaysOfWeek::MON;
+	case 1: return DaysOfWeek::TUE;
+	case 2: return DaysOfWeek::WED;
+	case 3: return DaysOfWeek::THU;
+	case 4: return DaysOfWeek::FRI;
+	case 5: return DaysOfWeek::SAT;
+	case 6: return DaysOfWeek::SUN;
+	default: throw "Invalid Day of week index" + d;
+	}
+}

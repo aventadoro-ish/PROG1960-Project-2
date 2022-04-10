@@ -15,3 +15,4 @@ enum class DaysOfWeek {
 };
 
 std::string daysOfWeekToStr(DaysOfWeek d);
+DaysOfWeek intToDaysOfWeek(int d);

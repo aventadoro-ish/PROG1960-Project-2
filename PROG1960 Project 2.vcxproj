@@ -23,12 +23,20 @@
     <ClCompile Include="src\Event.cpp" />
     <ClCompile Include="src\playground.cpp" />
     <ClCompile Include="src\PROG1960 Project 2.cpp" />
+    <ClCompile Include="src\Room.cpp" />
+    <ClCompile Include="src\Scheduler.cpp" />
+    <ClCompile Include="src\OpHours.cpp" />
+    <ClCompile Include="src\TimeSlots.cpp" />
     <ClCompile Include="src\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Attendant.h" />
     <ClInclude Include="src\Event.h" />
+    <ClInclude Include="src\OpHours.h" />
     <ClInclude Include="src\playground.h" />
+    <ClInclude Include="src\Room.h" />
+    <ClInclude Include="src\Scheduler.h" />
+    <ClInclude Include="src\TimeSlots.h" />
     <ClInclude Include="src\utils.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
