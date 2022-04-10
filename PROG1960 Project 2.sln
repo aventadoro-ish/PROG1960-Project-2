@@ -6,6 +6,10 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PROG1960 Project 2", "PROG1960 Project 2.vcxproj", "{674FBD85-0DA4-4BAA-B90C-2971DEC6B32B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B507B516-16C1-4C01-AD0F-38748D1E82C1}"
+	ProjectSection(SolutionItems) = preProject
+		src\CSV.cpp = src\CSV.cpp
+		src\CSV.h = src\CSV.h
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
