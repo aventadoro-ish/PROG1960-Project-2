@@ -23,7 +23,6 @@ Room::~Room() {
 }
 
 
-
 RoomType charToRoomType(char c) {
 	c |= 0b00100000; // decapitalize
 

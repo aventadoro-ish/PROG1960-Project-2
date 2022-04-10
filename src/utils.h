@@ -3,6 +3,10 @@
 #include <string>
 
 #define MAX_ATTENDANTS 10
+#define MAX_ROOMS 100
+#define MAX_EVENTS 100
+
+#define DEFAULT_MAX_CLASS_LENGH 3
 
 enum class DaysOfWeek {
 	MON,

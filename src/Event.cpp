@@ -82,3 +82,13 @@ int Event::getCurrentAttCount() const {
     return currentAttCount;
 }
 
+Attendant* Event::getAttendant(int idx) const {
+	if (idx > currentAttCount) {
+		std::string errorMes = "Attendant idx out of bounds for event: " + name +
+			". Max attendants: " + std::to_string(currentAttCount) + ", passed index: " + std::to_string(idx);
+		throw std::exception(errorMes.c_str());
+	}
+
+	return attendants[idx];
+
+}

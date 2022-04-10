@@ -28,7 +28,7 @@ public:
 	std::string getAttendantNamesStr() const;
 
 	void appendAttendant(const Attendant& att);
-
+	Attendant* getAttendant(int idx) const;
 };
 
 
