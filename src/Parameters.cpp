@@ -19,7 +19,7 @@ void Parameters::setOph(OpHours oph) {
     this->oph = oph;
 }
 
-void Parameters::appendRoom(const Room r) {
+void Parameters::appendRoom(const Room& r) {
     if (nRooms >= MAX_ROOMS) {
         throw std::exception("Maximum number of rooms reached for Parameters object @" + (uint64_t) this);
     }
@@ -31,6 +31,14 @@ void Parameters::appendRoom(const Room r) {
     
     ++nRooms;
 
+}
+
+Room** Parameters::getRoomsPtr() {
+    return rooms;
+}
+
+int Parameters::getRoomNumber() {
+    return nRooms;
 }
 
 int Parameters::getMaxClassLength() const

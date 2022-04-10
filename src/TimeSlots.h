@@ -10,7 +10,7 @@ private:
 	DaysOfWeek day;
 	Room* room;
 	Attendant* attendants[MAX_ATTENDANTS];
-    int currentAttCount;
+    int nAttendants;
     bool isOcc;
 
 public:
@@ -31,20 +31,32 @@ public:
 
     bool isOccupied();
 
+    bool hasAttenant(std::string name, int nParticipant);
+    void appendAttendant(const Attendant& att);
+
 };
 
 class TimeSlotManager {
 private:
     TimeSlot* * * slots;
-    Room* rooms;
+    Room** rooms;
 
     int nRooms;
     int nHours;
     int nTimeSlots;
 
+    int dayStartIdxs[7];
+
+    DaysOfWeek getDayFromSlotIdx(int hourIdx);
+    bool areAttendantsBusyDuring(int hourIdx, const Attendant* atts[], int nAtts);
+
 
 public:
-    TimeSlotManager(Room rooms[], int nRooms, const OpHours& opHours);
+    TimeSlotManager() {}
+    TimeSlotManager(Room* rooms[], int nRooms, const OpHours& opHours);
     ~TimeSlotManager();
+
+    TimeSlot* getFreeSlot(RoomType roomReq, const Attendant* atts[], int nAtts, int dayOfWeekOffset = -1);
+
 
 };

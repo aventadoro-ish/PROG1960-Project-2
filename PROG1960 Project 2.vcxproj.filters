@@ -80,5 +80,8 @@
     <ClInclude Include="src\CSV.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Parameters.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,27 +1,5 @@
 #include "Room.h"
 
-Room::Room() {
-	name = "-";
-	seats = 0;
-	type = RoomType::NULL_ROOM;
-}
-
-Room::Room(std::string name, int seats, RoomType type) {
-	this->name = name;
-	this->seats = seats;
-	this->type = type;
-}
-
-Room::Room(std::string name, int seats, char typeChar) {
-	this->name = name;
-	this->seats = seats;
-	this->type = charToRoomType(typeChar);
-}
-
-Room::~Room() {
-
-}
-
 
 RoomType charToRoomType(char c) {
 	c |= 0b00100000; // decapitalize
@@ -47,6 +25,33 @@ std::string roomTypeToString(RoomType rt) {
 
 }
 
+std::ostream& operator<<(std::ostream& out_stream, const Room& r) {
+	out_stream << "Room \"" << r.getName() << "\" (" << roomTypeToString(r.getType()) << ") seats: " << r.getSeats();
+	return out_stream;
+}
+
+Room::Room() {
+	name = "-";
+	seats = 0;
+	type = RoomType::NULL_ROOM;
+}
+
+Room::Room(std::string name, int seats, RoomType type) {
+	this->name = name;
+	this->seats = seats;
+	this->type = type;
+}
+
+Room::Room(std::string name, int seats, char typeChar) {
+	this->name = name;
+	this->seats = seats;
+	this->type = charToRoomType(typeChar);
+}
+
+Room::~Room() {
+	std::cout << "~room" << std::endl;
+
+}
 
 std::string Room::getName() const {
 	return name;

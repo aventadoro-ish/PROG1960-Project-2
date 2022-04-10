@@ -21,6 +21,9 @@ public:
 	int getMaxClassLength() const;
 	void setMaxClassLength(int maxClassLength);
 
-	void appendRoom(const Room r);
+	void appendRoom(const Room& r);
+
+	Room** getRoomsPtr();
+	int getRoomNumber();
 
 };
