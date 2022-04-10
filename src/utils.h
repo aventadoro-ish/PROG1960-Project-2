@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 
+
 #define MAX_ATTENDANTS 10
 #define MAX_ROOMS 100
 #define MAX_EVENTS 100

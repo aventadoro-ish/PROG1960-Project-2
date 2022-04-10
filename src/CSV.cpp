@@ -2,53 +2,36 @@
 #define NPOS -1
 
 CSV::CSV(std::string fileExt) {
-	fileName = fileExt;
+	setFileName(fileExt);
 }
-CSV::~CSV() {}
+
+
+
+
+CSV::~CSV() {
+	for (int i = rowCount-1; i >= 0; i--) {
+		delete[] arr[i];
+	}
+	delete[] arr;
+}
 
 std::string CSV::getFileName() { return fileName; }
 
 std::string CSV::getArrVal(int x, int y) {
 	return arr[x][y];
 }
-std::string* CSV::getRow(int x) {
+std::string* CSV::getRowData(int x) {
 	return arr[x];
 }
+int CSV::getRowCount()const { return rowCount; }
+int CSV::getColCount()const { return colCount; }
+
+void CSV::setFileName(std::string newName) {fileName = newName;}
+void CSV::setRowCount(int x) { rowCount = x; }
+void CSV::setColCount(int y) { colCount = y; }
 
 
-bool CSV::initArr(std::ifstream& file) {
-	int tempColCount = 1;
-	std::string buffer;
 
-	file.open(fileName);
-	if (!file.is_open()) {
-		std::cout << "Error Opening File: " << fileName << std::endl;
-		return false;
-	}
-	//Counting Rows & Columns
-	while (!file.eof()){
-		std::getline(file, buffer);
-		if (!buffer.empty()) {
-			for (int i = 0; i < buffer.size(); i++) {//Counts the # of columns
-				if (buffer[i] == ',') {
-					tempColCount++;
-				}
-			}
-			if (colCount < tempColCount) colCount = tempColCount;
-			rowCount++;
-			buffer.erase();
-			tempColCount = 0;
-		}
-	}
-	colCount++;
-	file.close();
-	//Initializing 2D Array
-	arr = new std::string * [rowCount];
-	for (int i = 0; i < rowCount; i++) {
-		arr[i] = new std::string[colCount];
-	}
-
-}
 
 bool CSV::importCsv(){
 	std::ifstream file;
@@ -87,14 +70,45 @@ bool CSV::importCsv(){
 	}
 	file.close();
 	}
+bool CSV::initArr(std::ifstream& file) {
 
-	
+	file.open(fileName);
+	if (!file.is_open()) {
+		std::cout << "Error Opening File: " << fileName << std::endl;
+		return false;
+	}
+	countArrDimensions(file);
+	file.close();
+	//Initializing 2D Array
+	arr = new std::string * [rowCount];
+	for (int i = 0; i < rowCount; i++) {
+		arr[i] = new std::string[colCount];
+	}
+
+}
+void CSV::countArrDimensions(std::ifstream& file) {
+	int tempColCount = 1;
+	std::string buffer;
+
+	while (!file.eof()) {
+		std::getline(file, buffer);
+		if (!buffer.empty()) {
+			for (int i = 0; i < buffer.size(); i++) {//Counts the # of columns
+				if (buffer[i] == ',') {
+					tempColCount++;
+				}
+			}
+			if (colCount < tempColCount) colCount = tempColCount;
+			rowCount++;
+			buffer.erase();
+			tempColCount = 0;
+		}
+	}
+	colCount++;
+}
 
 
-	//for (int i = rowCount-1; i >= 0; i--) {
-	//	delete[] arr[i];
-	//}
-	//delete[] arr;
+
 
 
 void CSV::printArr() {
@@ -110,3 +124,4 @@ void CSV::printArr() {
 		std::cout << "Array uninitialized.";
 	}
 }
+
