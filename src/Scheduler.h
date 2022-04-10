@@ -15,5 +15,5 @@ public:
 	Parameters getParam() const;
     void setParam(Parameters param);
 
-	void appendEvent(const Event e);
+	void appendEvent(const Event& e);
 };

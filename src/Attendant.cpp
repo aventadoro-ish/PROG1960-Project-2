@@ -7,6 +7,7 @@
 Attendant::Attendant() {
     name = "John Doe";
     participantCount = 0;
+
 }
 
 Attendant::Attendant(std::string name, int participantCount) {
@@ -16,7 +17,7 @@ Attendant::Attendant(std::string name, int participantCount) {
 
 
 Attendant::~Attendant() {
-   
+
 }
 
 std::string Attendant::getName() const {
@@ -28,7 +29,7 @@ void Attendant::setName(std::string name) {
 }
 
 int Attendant::getParticipantCount() const {
-    return ;
+    return participantCount;
 }
 
 void Attendant::setParticipantCount(int participantCount) {
