@@ -76,3 +76,9 @@ RoomType Room::getType() const {
 void Room::setType(RoomType type) {
 	this->type = type;
 }
+
+void Room::setType(std::string type) {
+	RoomType temp;
+	temp = charToRoomType(type[0]);
+	setType(temp);
+}

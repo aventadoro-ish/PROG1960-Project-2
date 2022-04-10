@@ -7,12 +7,14 @@ Pairings::~Pairings() {
 }
 
 
-void Pairings::assignEvents() {
+
+
+void Pairings::assignFromCSV() {
 
 	for (int i = 0; i < numEvents; i++) {
 		std::string* buffer = getRowData(i);
-		eventList[i].setName(buffer[0]);
-		eventList[i].setHours(std::stoi(buffer[1]));
+		eventList[i].setName(buffer[NAME]);
+		eventList[i].setHours(std::stoi(buffer[HOURS]));
 	}
 
 	

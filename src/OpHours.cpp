@@ -55,3 +55,10 @@ DaysOfWeek OpHours::getNthHourDayOfWeek(int n) const {
 	}
 
 }
+
+void OpHours::setStartTime(int day, int hr) {
+	startTimes[day] = hr;
+}
+void OpHours::setEndTime(int day, int hr) {
+	endTimes[day] = hr;
+}

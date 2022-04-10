@@ -2,8 +2,10 @@
 #include "utils.h"
 #include "OpHours.h"
 #include "Room.h"
+#include "CSV.h"
 
-class Parameters {
+
+class Parameters : private CSV {
 private:
 	OpHours oph;
 	Room** rooms;
@@ -13,7 +15,20 @@ private:
 
 public:
 	Parameters();
+	Parameters(std::string fileExt) : CSV(fileExt){
+		importCSV();
+		oph = OpHours();
+		rooms = new Room * [MAX_ROOMS];
+		nRooms = 0;
+		maxClassLength = DEFAULT_MAX_CLASS_LENGH;
+	}
 	~Parameters();
+
+	void assignFromCSV();
+	int findRooms();
+	int findOph();
+	int findNewInfo();
+
 
     OpHours getOph() const;
     void setOph(OpHours oph);
@@ -26,4 +41,6 @@ public:
 	Room** getRoomsPtr();
 	int getRoomNumber();
 
+	void testPrintParams();
 };
+

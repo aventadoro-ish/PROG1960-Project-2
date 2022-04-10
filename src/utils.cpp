@@ -25,3 +25,24 @@ DaysOfWeek intToDaysOfWeek(int d) {
 	default: throw std::exception("Invalid Day of week index" + d);
 	}
 }
+
+int dowStrToInt(std::string d) {
+	if (d.compare("MON") == 0) return 0;
+	if (d.compare("TUE") == 0) return 1;
+	if (d.compare("WED") == 0) return 2;
+	if (d.compare("THU") == 0) return 3;
+	if (d.compare("FRI") == 0) return 4;
+	if (d.compare("SAT") == 0) return 5;
+	if (d.compare("SUN") == 0) return 6;
+	
+}
+
+char* sToLower(std::string x) {
+	char c[20];
+	x.copy(c, x.size(), 0);
+	c[x.size()] = '\0';
+	for (int i = 0; i < x.size(); i++) {
+		c[i] = std::tolower(c[i]);
+	}
+	return c;
+}
