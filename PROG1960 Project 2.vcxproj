@@ -22,6 +22,7 @@
     <ClCompile Include="src\Attendant.cpp" />
     <ClCompile Include="src\CSV.cpp" />
     <ClCompile Include="src\Event.cpp" />
+    <ClCompile Include="src\Pairings.cpp" />
     <ClCompile Include="src\playground.cpp" />
     <ClCompile Include="src\PROG1960 Project 2.cpp" />
     <ClCompile Include="src\Room.cpp" />
@@ -35,6 +36,7 @@
     <ClInclude Include="src\CSV.h" />
     <ClInclude Include="src\Event.h" />
     <ClInclude Include="src\OpHours.h" />
+    <ClInclude Include="src\Pairings.h" />
     <ClInclude Include="src\playground.h" />
     <ClInclude Include="src\Room.h" />
     <ClInclude Include="src\Scheduler.h" />

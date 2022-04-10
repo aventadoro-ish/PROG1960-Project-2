@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 
+
 #define MAX_ATTENDANTS 10
 
 enum class DaysOfWeek {

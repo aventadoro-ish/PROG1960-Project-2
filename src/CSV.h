@@ -3,7 +3,7 @@
 #include <fstream>
 
 
-class CSV : private std::ofstream {
+class CSV {
 private:
 	std::string fileName;
 	std::string** arr;
@@ -11,18 +11,26 @@ private:
 	int colCount = 1;
 
 public:
-	CSV(std::string fileExt);
+	CSV(std::string);
 	~CSV();
 
 	std::string getFileName();
 	std::ofstream getCurrFile();
 	std::string getArrVal(int, int);//Do I need this?
-	std::string* getRow(int);
+	std::string* getRowData(int);
+	int getRowCount() const;
+	int getColCount() const;
 
-	void setFileName()const;
+	void setFileName(std::string);
+	void setRowCount(int);
+	void setColCount(int);
+	
 
-	bool initArr(std::ifstream&);
 	bool importCsv();
+	void countArrDimensions(std::ifstream&);
+	bool initArr(std::ifstream&);
+	
 	void printArr();
 
 };
+
