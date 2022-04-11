@@ -24,5 +24,4 @@ void Printable2DArray::print(std::ostream& ostr, bool addHeaders, char hSep, cha
 		ostr << vSep;
 	}
 
-
 }
