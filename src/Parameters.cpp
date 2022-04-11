@@ -66,7 +66,6 @@ void Parameters::appendRoom(const Room& r) {
         throw std::exception("Maximum number of rooms reached for Parameters object @" + (uint64_t) this);
     }
 
-    std::cout << r.getName();
 
     rooms[nRooms] = new Room();
     rooms[nRooms]->setName(r.getName());
