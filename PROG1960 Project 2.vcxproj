@@ -25,6 +25,7 @@
     <ClCompile Include="src\Parameters.cpp" />
     <ClCompile Include="src\Pairings.cpp" />
     <ClCompile Include="src\playground.cpp" />
+    <ClCompile Include="src\Printable2DArray.cpp" />
     <ClCompile Include="src\PROG1960 Project 2.cpp" />
     <ClCompile Include="src\Room.cpp" />
     <ClCompile Include="src\Scheduler.cpp" />
@@ -40,6 +41,7 @@
     <ClInclude Include="src\Pairings.h" />
     <ClInclude Include="src\Parameters.h" />
     <ClInclude Include="src\playground.h" />
+    <ClInclude Include="src\Printable2DArray.h" />
     <ClInclude Include="src\Room.h" />
     <ClInclude Include="src\Scheduler.h" />
     <ClInclude Include="src\TimeSlots.h" />

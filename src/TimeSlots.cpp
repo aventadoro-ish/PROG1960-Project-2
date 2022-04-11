@@ -72,8 +72,6 @@ bool TimeSlot::isOccupied() {
 	return isOcc;
 }
 
-// TODO: append attendant
-
 bool TimeSlot::hasAttenant(std::string name, int nParticipant) {
 	if (!isOcc) {
 		return false;
@@ -102,6 +100,38 @@ void TimeSlot::appendAttendant(const Attendant& att) {
 	isOcc = true;
 }
 
+std::string TimeSlot::getStrRepr() {
+	std::string instructors = "";
+	std::string students = "";
+
+	for (int i = 0; i < nAttendants; i++) {
+		if (attendants[i]->getParticipantCount() == 0) {
+			// instructor
+			if (instructors.length() > 0) {
+				instructors += "| ";
+			}
+			instructors += "instructor" + attendants[i]->getName();
+		}
+		else {
+			// students
+			if (students.length() > 0) {
+				students += "| ";
+			}
+			students += attendants[i]->getName() + " (" + std::to_string(attendants[i]->getParticipantCount()) + ")";
+
+
+		}
+	}
+	return instructors + "| " + students;
+}
+
+std::string TimeSlotManager::getHeaderForCol(int x) {
+	return slots[0][x]->getRoom()->getName();
+}
+
+std::string TimeSlotManager::getHeaderForRow(int y) {
+	return  daysOfWeekToStr(slots[y][0]->getDay()) + " " + std::to_string(slots[y][0]->getStartTime());
+}
 
 
 /********************************************************************/
@@ -128,10 +158,6 @@ void TimeSlot::appendAttendant(const Attendant& att) {
 TimeSlotManager::TimeSlotManager(Room* rooms[], int nRooms, const OpHours& opHours) {
 	std::cout << "TSM constructor" << std::endl;
 	this->rooms = rooms;
-
-	for (int i = 0; i < nRooms; i++) {
-		std::cout << *rooms[i] << std::endl;
-	}
 	
 	nHours = opHours.getTotalHours();
 	this->nRooms = nRooms;
@@ -152,10 +178,7 @@ TimeSlotManager::TimeSlotManager(Room* rooms[], int nRooms, const OpHours& opHou
 		for (int r = 0; r < nRooms; ++r) {
 
 			slots[h][r] = new TimeSlot(h, opHours.getNthHourDayOfWeek(h), rooms[r]);
-			if (slots[h][r] == NULL) {
-				std::cout << "Dumb-dumb" << std::endl;
-				std::cout << h << " " << r << std::endl;
-			}
+
 		}
 	}
 
@@ -169,6 +192,18 @@ TimeSlotManager::~TimeSlotManager() {
 		delete slots[h];
 	}
 	delete slots;
+}
+
+// Printable2DArray methods
+int TimeSlotManager::getXLen() {
+	return nRooms;
+}
+int TimeSlotManager::getYLen() {
+	return nHours;
+}
+
+std::string TimeSlotManager::getCellAsStr(int x, int y) {
+	return slots[y][x]->getStrRepr();
 }
 
 TimeSlot* TimeSlotManager::getFreeSlot(RoomType roomReq, const Attendant* atts[], int nAtts, int dayOfWeekOffset) {
@@ -216,22 +251,18 @@ TimeSlot* TimeSlotManager::getFreeSlot(RoomType roomReq, const Attendant* atts[]
 
 DaysOfWeek TimeSlotManager::getDayFromSlotIdx(int hourIdx) {
 	if (dayStartIdxs[0] <= hourIdx < dayStartIdxs[1]) return DaysOfWeek::MON;
-	else if (dayStartIdxs[1] <= hourIdx < dayStartIdxs[2]) return DaysOfWeek::TUE;
-	else if (dayStartIdxs[2] <= hourIdx < dayStartIdxs[3]) return DaysOfWeek::WED;
-	else if (dayStartIdxs[3] <= hourIdx < dayStartIdxs[4]) return DaysOfWeek::THU;
-	else if (dayStartIdxs[4] <= hourIdx < dayStartIdxs[5]) return DaysOfWeek::FRI;
-	else if (dayStartIdxs[5] <= hourIdx < dayStartIdxs[6]) return DaysOfWeek::SAT;
-	else if (dayStartIdxs[6] <= hourIdx < nHours) return DaysOfWeek::SUN;
+	else if (dayStartIdxs[1] <= hourIdx && hourIdx < dayStartIdxs[2]) return DaysOfWeek::TUE;
+	else if (dayStartIdxs[2] <= hourIdx && hourIdx < dayStartIdxs[3]) return DaysOfWeek::WED;
+	else if (dayStartIdxs[3] <= hourIdx && hourIdx < dayStartIdxs[4]) return DaysOfWeek::THU;
+	else if (dayStartIdxs[4] <= hourIdx && hourIdx < dayStartIdxs[5]) return DaysOfWeek::FRI;
+	else if (dayStartIdxs[5] <= hourIdx && hourIdx < dayStartIdxs[6]) return DaysOfWeek::SAT;
+	else if (dayStartIdxs[6] <= hourIdx && hourIdx < nHours) return DaysOfWeek::SUN;
 	else throw std::exception("Error while finding day of the week from hourSlotIdx. hourSlotIdx > nHours");
 }
 
 bool TimeSlotManager::areAttendantsBusyDuring(int hourIdx, const Attendant* atts[], int nAtts) {
 	for (int roomIdx = 0; roomIdx < nRooms; roomIdx++) {
 		for (int attIdx = 0; attIdx < nAtts; attIdx++) {
-			if (slots[hourIdx][roomIdx] == NULL) {
-				std::cout << "Dumb-dumb" << std::endl;
-			}
-
 			std::string name = atts[attIdx]->getName();
 			int nP = atts[attIdx]->getParticipantCount();
 

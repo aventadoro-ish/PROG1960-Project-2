@@ -3,6 +3,7 @@
 #include "Room.h"
 #include "Attendant.h"
 #include "OpHours.h"
+#include "Printable2DArray.h"
 
 class TimeSlot {
 private:
@@ -34,9 +35,13 @@ public:
     bool hasAttenant(std::string name, int nParticipant);
     void appendAttendant(const Attendant& att);
 
+
+    std::string getStrRepr();
+
+
 };
 
-class TimeSlotManager {
+class TimeSlotManager : public Printable2DArray {
 private:
     TimeSlot* * * slots;
     Room** rooms;
@@ -50,6 +55,13 @@ private:
     DaysOfWeek getDayFromSlotIdx(int hourIdx);
     bool areAttendantsBusyDuring(int hourIdx, const Attendant* atts[], int nAtts);
 
+    int getXLen();
+    int getYLen();
+
+    std::string getHeaderForRow(int y);
+    std::string getHeaderForCol(int x);
+
+    std::string getCellAsStr(int x, int y);
 
 public:
     TimeSlotManager() {}

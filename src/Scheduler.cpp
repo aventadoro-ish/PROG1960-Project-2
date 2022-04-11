@@ -94,22 +94,35 @@ void Scheduler::generateSchedule(int shuffleSeed) {
 	std::srand(shuffleSeed);
 	std::random_shuffle(eCopy, eCopy + nEvents);
 
-
-	for (int i = 0; i < param.getRoomNumber(); i++) {
-		std::cout << param.getRoomsPtr()[i]->getSeats() << std::endl;
-	}
-
 	for (int i = 0; i < nEvents; i++) {
 		Event* e = events[i];
 		const Attendant** atts = (const Attendant**)(e->getAttendatnsPtr());
 
-		TimeSlot* ts = tsm->getFreeSlot(e->getRoomReq(), atts, e->getCurrentAttCount());
-		if (ts == NULL) {
-			std::cout << "tsm.getFreeSlot() returned a null pointer!" << std::endl;
+		int splits = (e->getHours() + param.getMaxClassLength() - 1) / param.getMaxClassLength();
+		int dayCounter = 0;
+		int thisDayHours = 0;
+		
+		for (int i = 0; i < e->getHours(); i++) {
+
+			TimeSlot* ts = tsm->getFreeSlot(e->getRoomReq(), atts, e->getCurrentAttCount(), dayCounter);
+			if (ts == NULL) {
+				std::cout << "tsm.getFreeSlot() returned a null pointer!" << std::endl;
+			}
+
+			for (int i = 0; i < e->getCurrentAttCount(); i++) {
+				ts->appendAttendant(*atts[i]);
+			}
+			++thisDayHours;
+			if (thisDayHours >= param.getMaxClassLength()) {
+				++dayCounter;
+				thisDayHours = 0;
+			}
+
 		}
 
 
-
 	}
+
+	tsm->print(std::cout);
 
 }
