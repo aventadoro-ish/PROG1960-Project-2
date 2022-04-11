@@ -62,7 +62,7 @@ bool CSV::importCSV() {
 		ref = 0;
 		flag = 0;
 		std::getline(file, buffer);
-		if ((BLANK_LINE)) {
+		if (buffer.empty()) {
 			x--;
 			continue;
 		}
@@ -108,8 +108,8 @@ bool CSV::importCSV() {
 				arr[x][y] = "";
 			}
 		}
-		file.close();
 	}
+	file.close();
 }
 bool CSV::initArr(std::ifstream& file) {
 
@@ -144,7 +144,6 @@ void CSV::countArrDimensions(std::ifstream& file) {
 			tempColCount = 0;
 		}
 	}
-	colCount++;
 }
 
 
