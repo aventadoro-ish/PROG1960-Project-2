@@ -3,7 +3,7 @@
 Event::Event() {
 	name = "";
 	hours = 0;
-	
+	std::cout << "event constructor";
 	for (int i = 0; i < MAX_ATTENDANTS; ++i) {
 		attendants[i] = NULL;
 	}
@@ -72,12 +72,12 @@ void Event::appendAttendant(std::string name, int partCount) {
 		std::string errMessage = "Attendant Limit reached for event" + this->name + ", while adding attendant" + name;
 		throw errMessage; // TODO: exception - change to custom when it is implemented
 	}
-	attendants[currentAttCount] = new Attendant(name, partCount);
+	attendants[currentAttCount] = new Attendant();
 
 	attendants[currentAttCount]->setName(name);
 	attendants[currentAttCount]->setParticipantCount(partCount);
 
-	++currentAttCount;
+	currentAttCount++;
 }
 
 std::ostream& operator<<(std::ostream& out_stream, const Event& evt) {
