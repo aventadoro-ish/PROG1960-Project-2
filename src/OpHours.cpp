@@ -29,7 +29,7 @@ int OpHours::getTotalHours() const {
 }
 
 int OpHours::getTotalHoursOnDay(int day) const {
-	return endTimes[day] - startTimes[day];
+	return endTimes[day] - startTimes[day] + 1;
 }
 
 int OpHours::getTotalHoursOnDay(DaysOfWeek day) const {

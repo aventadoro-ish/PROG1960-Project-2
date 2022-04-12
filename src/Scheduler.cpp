@@ -216,6 +216,7 @@ void Scheduler::getDailyScoreForEvent(Event* e, int resArrayPtr[7]) {
 }
 
 int Scheduler::allocateEvent(Event* e) {
+	static int dayOrderBugFix = 0;
 	Attendant** atts = (e->getAttendatnsPtr());
 	cout << "Allocating " << e->getName() << endl;
 
@@ -232,7 +233,7 @@ int Scheduler::allocateEvent(Event* e) {
 	int targetClassLenght = min(e->getHours(), param->getMaxClassLength());
 	for (; targetClassLenght > 0; --targetClassLenght) {
 		if (hoursAllocated >= e->getHours()) break;
-		//cout << "\ttargenClassLen = " << targetClassLenght << endl;
+		cout << "\ttargenClassLen = " << targetClassLenght << endl;
 
 		// min stops from overshoting required hours per week
 		int thisClassLength = min(targetClassLenght, e->getHours() - hoursAllocated);
@@ -245,15 +246,19 @@ int Scheduler::allocateEvent(Event* e) {
 		for (int dayPriority = 0; dayPriority < 7; dayPriority++) {
 			if (hoursAllocated >= e->getHours()) break;
 
+			getDailyScoreForEvent(e, dailyScoresForEvent);
 			int dayOfWeek = getNthSmallesIndex(dayPriority, dailyScoresForEvent);
+
+			dayOfWeek = (dayOrderBugFix++ + dayOfWeek) % 7;
+
 			// reduces priority for this day for next iter
 			dailyScoresForEvent[dayOfWeek] = INT_MAX;
 
-			//cout << "\t\ttrying " << daysOfWeekToStr(intToDaysOfWeek(dayOfWeek));
+			cout << "\t\ttrying " << daysOfWeekToStr(intToDaysOfWeek(dayOfWeek));
 
 
 			if (param->getOph().getTotalHoursOnDay(dayOfWeek) < thisClassLength) {
-				//cout << " operational hours\n";
+				cout << " operational hours\n";
 				continue;
 			}
 			// try to find slots
@@ -261,17 +266,17 @@ int Scheduler::allocateEvent(Event* e) {
 				(const Attendant**)atts, e->getCurrentAttCount(), dayOfWeek, thisClassLength);
 
 			if (slotIdx.first < 0 || slotIdx.second < 0) {
-				//cout << " slots not found\n";
+				cout << " slots not found\n";
 				continue;
 			}
-			//cout << endl;
+			cout << endl;
 			// succedes to find the slot
 			for (int hour = 0; hour < thisClassLength; hour++) {
 				TimeSlot* ts = tsm->getTimeSlot(slotIdx.first + hour, slotIdx.second);
 
-				//cout << "\t\t\t allocating to " << daysOfWeekToStr(ts->getDay()) <<
-				//	" " << to_string(ts->getStartTime()) << " in room " <<
-				//	ts->getRoom()->getName() << endl;
+				cout << "\t\t\t allocating to " << daysOfWeekToStr(ts->getDay()) <<
+					" " << to_string(ts->getStartTime()) << " in room " <<
+					ts->getRoom()->getName() << endl;
 
 				for (int i = 0; i < e->getCurrentAttCount(); i++) {
 					ts->appendUniqueAttendant(atts[i]);
