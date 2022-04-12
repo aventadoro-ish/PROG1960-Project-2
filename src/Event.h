@@ -37,6 +37,10 @@ public:
     RoomType getRoomReq() const;
     void setRoomReq(RoomType roomReq);
 
+	int getTotalParticipants();
+
+	std::string strRepr();
+
 };
 
 

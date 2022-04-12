@@ -118,3 +118,16 @@ void Event::setRoomReq(RoomType roomReq) {
     this->roomReq = roomReq;
 }
 
+int Event::getTotalParticipants() {
+	int totalParticipantCount = 0;
+	for (int i = 0; i < currentAttCount; i++) {
+		totalParticipantCount += attendants[i]->getParticipantCount();
+	}
+
+	return totalParticipantCount;
+}
+
+std::string Event::strRepr() {
+	return std::string("Event:" + name + " (" + std::to_string(hours) + "h): " + getAttendantNamesStr());
+}
+

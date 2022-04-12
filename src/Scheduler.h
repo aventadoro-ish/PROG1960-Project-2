@@ -4,12 +4,15 @@
 #include "Event.h"
 #include "TimeSlots.h"
 
+#include <ostream>
+
 class Scheduler {
 private:
 	Parameters param;
 	Event* events[MAX_EVENTS];
 	int nEvents;
 	TimeSlotManager* tsm;
+	std::ostream* errorStream;
 
 	void appendEventSplit(const Event& e);
 	void appendEventNonSplit(const Event& e);
@@ -22,6 +25,11 @@ private:
 	// the lower the score, the lesser load
 	void getDailyScoreForEvent(Event* e, int resArrayPtr[7]);
 
+	int allocateEvent(Event* e);
+	void error(std::string errMes, bool isCritical = false);
+
+
+
 public:
 	Scheduler();
 	Scheduler(Parameters para);
@@ -30,11 +38,16 @@ public:
 	Parameters getParam() const;
     void setParam(Parameters param);
 
+	void syncAttendantReferences();
+
+	int validateInput();
+
+
 	void appendEvent(const Event& e);
 
 	void generateSchedule(int shuffleSeed);
-
-	void syncAttendantReferences();
-
+	
+    std::ostream* getErrorStream() const { return errorStream; }
+    void setErrorStream(std::ostream& errorStream) { this->errorStream = &errorStream; }
 
 };

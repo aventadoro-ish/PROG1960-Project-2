@@ -116,6 +116,10 @@ void TimeSlot::appendUniqueAttendant(Attendant* att) {
 
 
 std::string TimeSlot::getStrRepr() {
+	std::string out = "";
+
+	if (name.length() > 0) out += '"' + name + '"' + ' ';
+
 	std::string instructors = "";
 	std::string students = "";
 
@@ -123,21 +127,26 @@ std::string TimeSlot::getStrRepr() {
 		if (attendants[i]->getParticipantCount() == 0) {
 			// instructor
 			if (instructors.length() > 0) {
-				instructors += "| ";
+				instructors += " | ";
 			}
-			instructors += "instructor" + attendants[i]->getName();
+			instructors += attendants[i]->getName();
 		}
 		else {
 			// students
 			if (students.length() > 0) {
-				students += "| ";
+				students += " | ";
 			}
 			students += attendants[i]->getName() + " (" + std::to_string(attendants[i]->getParticipantCount()) + ")";
-
-
 		}
 	}
-	return instructors + "| " + students;
+
+	if (instructors.length() > 0 && students.length() > 0) {
+		out += instructors + " | " + students;
+	} else {
+		out += instructors + students;
+	}
+
+	return out;
 }
 
 std::string TimeSlotManager::getHeaderForCol(int x) {

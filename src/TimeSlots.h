@@ -12,6 +12,7 @@ private:
 	Room* room;
 	Attendant* attendants[MAX_ATTENDANTS];
 	int nAttendants;
+	std::string name;
 	bool isOcc;
 
 public:
@@ -39,6 +40,11 @@ public:
 
 	std::string getStrRepr();
 
+
+    std::string getName() const { return name; }
+    void setName(std::string name) { this->name = name; }
+
+    void setIsOcc(bool isOcc) { this->isOcc = isOcc; }
 
 };
 
