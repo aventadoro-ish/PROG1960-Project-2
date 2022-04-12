@@ -13,6 +13,7 @@ CSV::CSV(std::string fileExt) {
 }
 
 CSV::~CSV() {
+	std::cout << "CSV DESTRUCTOR CALLED\n";
 	delete[] arr;
 }
 

@@ -12,59 +12,58 @@ std::string selectParams();
 using namespace std;
 
 int main() {
-    std::cout << "Class Grouping Project v0.0.1!\n";
-
-    CSV pairs(selectPairings());
-    CSV params(selectParams());
-
-    Pairings x(pairs);
-
-    x.printEvent(ALL);
-
-    _getch();
-        mainMenu();
+    std::cout << "Class Grouping Project v0.0.1!    ------ Use Arrow Keys To Navigate & Enter To Select\n";
+    int menu = 0;
 
 
+    CSV parFile;
+    Pairings parings;
+    //parFile = CSV(selectPairings());
+    //parings = Pairings(parFile);
+    while (menu == 0) {
+        switch (mainMenu()) {
+        case 1:
+            //Generate Schedule
+            break;
+        case 2:
+            clearEx(3);
+            parFile = CSV(selectPairings());
+            parings.~Pairings();
+            parings = Pairings(parFile);
+            break;
+        case 3:
+            parings.editor();
+            break;
+        case 4:
+            selectParams();
+        case 5:
+            //Edit Param List
+            break;
+        case -1:
+            menu = -1;
+            break;
 
-
-    //}
-
-
-
-
+        }
+    }
 }
+
 int mainMenu() {
     int cmd = 0;
     clearEx(3);
-    std::cout << "1. Import CSV\n";
-    std::cout << "2. Generate Schedule\n";
-    std::cout << "3. View Event List\n";
-    std::cout << "4. Edit Event List\n";
-    std::cout << "5. View Parameters List\n";
-    std::cout << "6. Edit Parameters List\n";
+    std::cout << "1. Generate Schedule\n";
+    std::cout << "2. Change Event File\n";
+    std::cout << "3. Edit Event List\n";
+    std::cout << "\n";
+    std::cout << "5. Edit Parameters List\n";
     KeyNav cursor(0, 3);
     while (cmd == 0) {
         cmd = cursor.menuKeyParser(_getch());
     }
-    switch (cursor.getCursY() - 2) {
-    case 1:
-        //Change CSV
-        return 1;
-    case 2:
-        //Generate Schedule
-        return 2;
-    case 3:
-        //View Event List
-        return 3;
-    case 4:
-        //Edit Event List
-    case 5:
-        //View Parameters List
-        break;
-    case 6:
-        //Edit Parameters List
-        break;
+    if (cmd == 2) {
+        return -1;
     }
+    return (cursor.getCursY() - 2);
+
 }
 std::string selectPairings() {
     std::string usrFile;

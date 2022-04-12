@@ -22,6 +22,7 @@ Pairings::Pairings(CSV& file) {
 	assignFromCSV(file);
 }
 Pairings::~Pairings() {
+	std::cout << "Pairings Destructor Called\n";
 	delete[] eventList;
 }
 
@@ -102,7 +103,7 @@ void Pairings::printEvent(int index){
 
 
 
-void Pairings::editor(int x) {
+void Pairings::editor() {
 	clearEx(OFFSET);
 	printEvent(ALL);
 	setCursX(0);
