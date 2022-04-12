@@ -16,4 +16,21 @@ int main() {
 	playground();
 
 
+    std::string paramFile;
+    std::string pairFile;
+
+    cin >> paramFile;
+    cin >> pairFile;
+    CSV pairCSV(pairFile);
+
+    Pairings pairObj(pairCSV);
+    Parameters paramObj(paramFile);
+
+    bool menu = true;
+    while(menu = true){
+
+
+    }
+
+
 }
