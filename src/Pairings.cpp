@@ -105,13 +105,13 @@ void Pairings::printEvent(int index){
 		}
 	}
 	else {
-		std::cout << "Name:                   ";
+		std::cout << "1. Name:                   ";
 		std::cout << eventList[index]->getName() << "\n";
-		std::cout << "Hours per week:         ";
+		std::cout << "2. Hours per week:         ";
 		std::cout << eventList[index]->getHours() << "\n";
-		std::cout << "Room Type Required:     ";
+		std::cout << "3. Room Type Required:     ";
 		std::cout << roomTypeToString(eventList[index]->getRoomReq()) << "\n";
-		std::cout << "Current Attendees:      ";
+		std::cout << "4. Current Attendees:      ";
 		std::cout << eventList[index]->getAttendantNamesStr() << "\n";
 		std::cout << std::endl;
 	}
@@ -120,17 +120,21 @@ void Pairings::printEvent(int index){
 
 
 bool Pairings::editor() {
-	clearEx(OFFSET);
+	clearEx(3);
 	printEvent(ALL);
-	std::cout << "\nReturn to Main Menu";
-	setCursX(0);
-	setCursY(OFFSET);
-	int i = selectEvent(OFFSET);
-	int cmd;
+	std::cout << "\n5. Return to Main Menu";
+	int i;
+	std::cout << "\n\nPlease select an event to edit:\n";
+	std::cin >> i;
+	i--;
 	std::string buffer;
 	clearEx(OFFSET);
-	switch (getCursY() - OFFSET) {
-	case 0:
+	std::cout << "Please select a field to edit:\n";
+	printEvent(i);
+	int menuSel;
+	std::cin >> menuSel;
+	switch (i) {
+	case 1:
 		std::cout << "Current Name:\n";
 		std::cout << eventList[i]->getName() << "\n\n";
 		std::cout << "Please enter a new name: ";
@@ -138,7 +142,7 @@ bool Pairings::editor() {
 		eventList[i]->setName(buffer);
 		clearEx(OFFSET);
 		return true;
-	case 1:
+	case 2:
 		std::cout << "Current hours per week:\n";
 		std::cout << eventList[i]->getHours() << "\n\n";
 		std::cout << "Please enter a new value: ";
@@ -148,23 +152,17 @@ bool Pairings::editor() {
 		clearEx(OFFSET);
 		std::cout << eventList[i]->getHours();
 		return true;
-	case 2:
+	case 3:
+		clearEx(3);
 		std::cout << "Current room type required:\n";
 		std::cout << roomTypeToString(eventList[i]->getRoomReq());
-		std::cout << "\n\nPlease select a new room type:\nLecture Hall\nTech Lab\nComputer Lab\nSports Hall";
-		setCursX(0);
-		setCursY(7);
-		cmd = 0;
-		while (cmd == 0) {
-			cmd = menuKeyParser(_getch());
-		}
-		if (cmd == 1) {
-			std::cout << getCursY();
-			eventList[i]->setRoomReq(intToRoomType(getCursY() - 7));
-			std::cout << roomTypeToString(eventList[i]->getRoomReq());
-		}
+		std::cout << "\n\nPlease select a new room type:\n1. Lecture Hall\n2. Tech Lab\n3. Computer Lab\n4. Sports Hall";
+		std::cin >> menuSel;
+		eventList[i]->setRoomReq(intToRoomType(menuSel));
+		//std::cout << roomTypeToString(eventList[i]->getRoomReq());
 		return true;
-	case 3:
+	case 4:
+		std::cout << "IMPLEMENTAION FAILED";
 		//for (int i = 0; i < eventList[i].getCurrentAttCount(); i++) {
 		//	eventList[i].getAttendantNamesStr(i);
 		//	std::cout << "\n";
@@ -184,31 +182,5 @@ bool Pairings::editor() {
 		return false;
 	default:
 		return true;
-	}
-}
-
-
-int Pairings::selectEvent(int offset) {
-
-	int cmd = 0;
-	int i = -1;
-	while (cmd == 0) {
-		cmd = menuKeyParser(_getch());
-	}
-	clearEx(offset);
-	if (cmd == 1) {
-		i = getCursY() - offset;
-		printEvent(getCursY() - offset);
-		setCursX(0);
-		setCursY(offset);
-		cmd = 0;
-		while (cmd == 0) {
-			cmd = menuKeyParser(_getch());
-		}
-		if (cmd == 1) {
-
-			return i;
-
-		}
 	}
 }
