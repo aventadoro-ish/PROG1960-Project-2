@@ -42,40 +42,12 @@ void CSV::setFileName(std::string newName) {
 	else {
 		std::cout << "Error Opening File: " << fileName << std::endl;
 	}
-		
-
-	
-	
-
 }
 void CSV::setRowCount(int x) { rowCount = x; }
 void CSV::setColCount(int y) { colCount = y; }
 void CSV::setArrVal(int x, int y, std::string data) {
 	arr[x][y] = data;
 }
-
-
-
-
-
-
-
-
-
-
-//void CSV::printArr() {
-//	try {
-//		for (int i = 0; i < rowCount; i++) {
-//			for (int ii = 0; ii < colCount; ii++){
-//				std::cout << arr[i][ii] << " ";
-//			}
-//			std::cout << std::endl;
-//		}
-//	}
-//	catch (...) {
-//		std::cout << "Array uninitialized.";
-//	}
-//}
 
 bool CSV::importCSV() {
 	std::ifstream file;
@@ -108,33 +80,6 @@ bool CSV::importCSV() {
 			continue;
 		}
 
-		//Experimental Algorithm -- Needs Cleaned Up/Whitespace removal feature
-		// 
-		//for (int y = 0; y < colCount; y++) {
-		//	if (flag == LAST_CELL) {
-		//		arr[x][y] = "";
-		//		continue;
-		//	}
-		//	if (buffer.find_first_of(',', ref) != NPOS) {
-		//		pos = (buffer.find_first_of(',', ref));
-		//		temp = buffer.substr(ref, (pos-ref));
-		//		ref += temp.size() + 1;
-		//		arr[x][y] = temp;
-		//		std::cout << arr[x][y];
-		//		temp.erase();
-		//	}
-		//	else
-		//	{
-		//		flag = LAST_CELL; 
-		//		arr[x][y] = buffer.substr(ref);
-		//		std::cout << arr[x][y];
-		//		continue;
-		//	}
-		//}
-		//std::cout << std::endl;
-		//}
-
-
 		//Import Info
 		for (int y = 0; y < colCount; y++) {
 			if ((pos = buffer.find_first_of(",")) != NPOS) {
@@ -154,6 +99,7 @@ bool CSV::importCSV() {
 	}
 	file.close();
 }
+
 bool CSV::initArr(std::ifstream& file) {
 
 	file.open(fileName);

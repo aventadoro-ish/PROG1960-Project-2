@@ -14,9 +14,6 @@ Attendant::Attendant() {
         nHoursArr[i] = 0;
     }
     //std::cout << " attendand constructor (" << instCount << ")\n";
-
-
-
 }
 
 Attendant::Attendant(std::string name, int participantCount) {
@@ -27,10 +24,7 @@ Attendant::Attendant(std::string name, int participantCount) {
     for (int i = 0; i < 7; i++) {
         nHoursArr[i] = 0;
     }
-
-
     //std::cout << " attendand constructor (" << instCount << ")\n";
-
 }
 
 
