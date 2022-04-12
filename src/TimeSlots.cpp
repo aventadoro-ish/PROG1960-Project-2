@@ -35,7 +35,11 @@ TimeSlot::TimeSlot(int startTime, DaysOfWeek dow, Room* room) {
 TimeSlot::~TimeSlot() {
 	std::cout << "~Timeslot destructor " << std::endl;
 	for (int i = 0; i < MAX_ATTENDANTS; ++i) {
-		delete attendants[i];
+		if (attendants[i]->getRefCount() > 1) {
+			attendants[i]->decRefCount();
+		} else {
+			delete attendants[i];
+		}
 	}
 }
 
@@ -73,9 +77,9 @@ bool TimeSlot::isOccupied() {
 }
 
 bool TimeSlot::hasAttenant(std::string name, int nParticipant) {
-	if (!isOcc) {
-		return false;
-	}
+	//if (!isOcc) {
+	//	return false;
+	//}
 
 	for (int i = 0; i < nAttendants; i++) {
 		if (attendants[i]->getName() == name && attendants[i]->getParticipantCount() == nParticipant) {
@@ -85,6 +89,8 @@ bool TimeSlot::hasAttenant(std::string name, int nParticipant) {
 	return false;
 		
 }
+
+
 
 void TimeSlot::appendAttendant(const Attendant& att) {
 	if (nAttendants >= MAX_ATTENDANTS) {
@@ -99,6 +105,15 @@ void TimeSlot::appendAttendant(const Attendant& att) {
 
 	isOcc = true;
 }
+
+void TimeSlot::appendUniqueAttendant(Attendant* att) {
+	attendants[nAttendants] = att;
+	att->incRefCount();
+	++nAttendants;
+	isOcc = true;
+}
+
+
 
 std::string TimeSlot::getStrRepr() {
 	std::string instructors = "";
@@ -164,12 +179,12 @@ TimeSlotManager::TimeSlotManager(Room* rooms[], int nRooms, const OpHours& opHou
 	
 	nTimeSlots = nHours * nRooms;
 
-	int hPass = 0;
+	int hoursPassed = 0;
 	dayStartIdxs[0] = 0;
-	hPass += opHours.getTotalHoursOnDay(0);
+	hoursPassed += opHours.getTotalHoursOnDay(0) + 1;
 	for (int i = 1; i < 7; i++) {
-		dayStartIdxs[i] = hPass;
-		hPass += opHours.getTotalHoursOnDay(i);
+		dayStartIdxs[i] = hoursPassed;
+		hoursPassed += opHours.getTotalHoursOnDay(i);
 	}
 
 	slots = new TimeSlot * *[nHours];
@@ -246,11 +261,109 @@ TimeSlot* TimeSlotManager::getFreeSlot(RoomType roomReq, const Attendant* atts[]
 
 }
 
+TimeSlot* TimeSlotManager::getFreeSlotOnDay(RoomType roomReq, const Attendant* atts[],
+				int nAtts, int day, int consecutive) {
+
+	int startHourSlot = dayStartIdxs[day];
+
+	int totalParticipantCount = 0;
+	for (int i = 0; i < nAtts; i++) {
+		totalParticipantCount += atts[i]->getParticipantCount();
+	}
+
+
+	for (int room = 0; room < nRooms; room++) {
+		TimeSlot* ts = slots[0][room];
+
+		if (ts->getRoom()->getType() != roomReq) continue;
+
+		if (ts->getRoom()->getSeats() < totalParticipantCount) continue;
+
+		int consHours = consecutive;
+		for (int hour = startHourSlot; hour < nHours; hour++) {
+			if (areAttendantsBusyDuring(hour, atts, nAtts)) {
+				consHours = consecutive;
+				continue;
+			}
+
+			--consHours;
+			if (consHours <= 0) {
+				return ts;
+			}
+
+		}
+
+	}
+
+	std::string errMes = "No consecutive timeslots left that meet requirements: totalSeats=" + std::to_string(totalParticipantCount) +
+		" roomRequiremnet=" + roomTypeToString(roomReq) + " for attendants: ";
+	for (int i = 0; i < nAtts; i++) {
+		errMes += atts[i]->getName() + ", ";
+	}
+	errMes += " on day: " + std::to_string(day);
+
+	std::cout << errMes << std::endl;
+	throw std::exception(errMes.c_str());
+}
+
+std::pair<int, int> TimeSlotManager::getFreeSlotIdxOnDay(RoomType roomReq, const Attendant* atts[],
+	int nAtts, int day, int consecutive) {
+
+	int startHourSlot = dayStartIdxs[day];
+	int endHourSlot = dayStartIdxs[day+1];
+
+
+	int totalParticipantCount = 0;
+	for (int i = 0; i < nAtts; i++) {
+		totalParticipantCount += atts[i]->getParticipantCount();
+	}
+
+
+	for (int room = 0; room < nRooms; room++) {
+		TimeSlot* ts = slots[0][room];
+
+		if (ts->getRoom()->getType() != roomReq) continue;
+
+		if (ts->getRoom()->getSeats() < totalParticipantCount) continue;
+
+		int consHoursCounter = 0;
+		// loops over the slots of the target day
+		for (int i = startHourSlot; i < endHourSlot; i++) {
+			if (areAttendantsBusyDuring(i, atts, nAtts)) {
+				consHoursCounter = 0;
+				continue;
+			}
+
+			++consHoursCounter;
+
+			if (consHoursCounter >= consecutive) {
+				return std::pair<int, int>(i - consHoursCounter + 1, room);
+			}
+
+		}
+	}
+
+	std::string errMes = "No consecutive timeslots left that meet requirements: totalSeats=" + std::to_string(totalParticipantCount) +
+		" roomRequiremnet=" + roomTypeToString(roomReq) + " for attendants: ";
+	for (int i = 0; i < nAtts; i++) {
+		errMes += atts[i]->getName() + ", ";
+	}
+	errMes += " on day: " + std::to_string(day) + " needs " + std::to_string(consecutive) + " hours";
+
+	//std::cout << errMes << std::endl;
+	return std::pair<int, int>(-1, -1);
+	//throw std::exception(errMes.c_str());
+}
+
+TimeSlot* TimeSlotManager::getTimeSlot(int hour, int room) {
+	return slots[hour][room];
+}
+
 
 // PRIVATE:
 
 DaysOfWeek TimeSlotManager::getDayFromSlotIdx(int hourIdx) {
-	if (dayStartIdxs[0] <= hourIdx < dayStartIdxs[1]) return DaysOfWeek::MON;
+	if (dayStartIdxs[0] <= hourIdx && hourIdx < dayStartIdxs[1]) return DaysOfWeek::MON;
 	else if (dayStartIdxs[1] <= hourIdx && hourIdx < dayStartIdxs[2]) return DaysOfWeek::TUE;
 	else if (dayStartIdxs[2] <= hourIdx && hourIdx < dayStartIdxs[3]) return DaysOfWeek::WED;
 	else if (dayStartIdxs[3] <= hourIdx && hourIdx < dayStartIdxs[4]) return DaysOfWeek::THU;

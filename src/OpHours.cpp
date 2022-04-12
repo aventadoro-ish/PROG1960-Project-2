@@ -62,3 +62,13 @@ void OpHours::setStartTime(int day, int hr) {
 void OpHours::setEndTime(int day, int hr) {
 	endTimes[day] = hr;
 }
+
+int OpHours::getNWorkDays() {
+	int nDays = 0;
+
+	for (int i = 0; i < 7; ++i) {
+		nDays += (getTotalHoursOnDay(i) > 0);
+	}
+
+	return nDays;
+}

@@ -3,7 +3,6 @@
 Event::Event() {
 	name = "";
 	hours = 0;
-	std::cout << "event constructor";
 	for (int i = 0; i < MAX_ATTENDANTS; ++i) {
 		attendants[i] = NULL;
 	}
@@ -16,7 +15,11 @@ Event::~Event() {
 	//delete[] attendants;	// this: C4154 deletion of an array expression; conversion to pointer supplied
 	//delete[] &attendants; // does not give a warning, but still crashes the program
 	for (int i = 0; i < currentAttCount; ++i) {
-		delete attendants[i];
+		if (attendants[i]->getRefCount() > 1) {
+			attendants[i]->decRefCount();
+		} else {
+			delete attendants[i];
+		}
 	}
 }
 
@@ -79,6 +82,12 @@ void Event::appendAttendant(std::string name, int partCount) {
 
 	currentAttCount++;
 }
+
+void Event::changeAttendantPtr(int idx, Attendant* ptr) {
+	delete attendants[idx];
+	attendants[idx] = ptr;
+}
+
 
 std::ostream& operator<<(std::ostream& out_stream, const Event& evt) {
 	out_stream << "Event:" << evt.getName() << " (" << evt.getHours() << "h): " << evt.getAttendantNamesStr();

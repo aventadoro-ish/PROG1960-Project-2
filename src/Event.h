@@ -32,6 +32,7 @@ public:
 	void appendAttendant(const Attendant&);
 	void appendAttendant(std::string, int);
 	Attendant* getAttendant(int idx) const;
+	void changeAttendantPtr(int idx, Attendant* ptr);
 
     RoomType getRoomReq() const;
     void setRoomReq(RoomType roomReq);

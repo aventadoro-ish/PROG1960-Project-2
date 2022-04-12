@@ -22,4 +22,6 @@ public:
 	void setStartTime(int, int);
 	void setEndTime(int, int);
 
+	int getNWorkDays();
+
 };

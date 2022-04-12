@@ -4,7 +4,12 @@ Parameters::Parameters() {
     oph = OpHours();
     rooms = new Room* [MAX_ROOMS];
     nRooms = 0;
+
+    // assign default preferences
     maxClassLength = DEFAULT_MAX_CLASS_LENGH;
+    instructorTimeCostMultiplier = DEFAULT_INSTRUCTOR_TIME_COST_MULTIPLIER;
+    studentTimeCostMultiplier = DEFAULT_STUDENT_TIME_COST_MULTIPLIER;
+    isEarlyPreffered = DEFAULT_IS_EARLY_PREFERED;
 }
 
 Parameters::~Parameters() {
@@ -112,3 +117,33 @@ void Parameters::testPrintParams() {
         std::cout << rooms[i]->getSeats() << std::endl;
     }
 }
+int Parameters::getInstructorTimeCostMultiplier() const
+{
+    return instructorTimeCostMultiplier;
+}
+
+void Parameters::setInstructorTimeCostMultiplier(int instructorTimeCostMultiplier)
+{
+    this->instructorTimeCostMultiplier = instructorTimeCostMultiplier;
+}
+
+int Parameters::getStudentTimeCostMultiplier() const
+{
+    return studentTimeCostMultiplier;
+}
+
+void Parameters::setStudentTimeCostMultiplier(int studentTimeCostMultiplier)
+{
+    this->studentTimeCostMultiplier = studentTimeCostMultiplier;
+}
+
+bool Parameters::getIsEarlyPreffered() const
+{
+    return isEarlyPreffered;
+}
+
+void Parameters::setIsEarlyPreffered(bool isEarlyPreffered)
+{
+    this->isEarlyPreffered = isEarlyPreffered;
+}
+
