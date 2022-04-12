@@ -183,13 +183,17 @@ void Scheduler::generateSchedule(int shuffleSeed) {
 
 	// write to file
 	ofstream file;
-	file.open("Output Schedule" + to_string(shuffleSeed) + ".csv");
+	cout << "Output file name: " << "Output\\Output Schedule" + to_string(shuffleSeed) + ".csv\n";
+	file.open("Output\\Output Schedule" + to_string(shuffleSeed) + ".csv");
 	if (!file.is_open()) {
 		error("could not open output file", true);
 	}
 
 	tsm->print(file);
 	file.close();
+
+	delete tsm;
+	tsm = new TimeSlotManager(param->getRoomsPtr(), param->getRoomNumber(), param->getOph());
 
 }
 
