@@ -38,7 +38,7 @@ public:
 	~Scheduler();
 
 	Parameters getParam() const { return param; }
-    void setParam(Parameters param) { this->param = param; }
+	void setParam(Parameters param) { this->param = param; }
 
 	void syncAttendantReferences();
 
@@ -49,7 +49,7 @@ public:
 
 	void generateSchedule(int shuffleSeed);
 	
-    std::ostream* getErrorStream() const { return errorStream; }
-    void setErrorStream(std::ostream& errorStream) { this->errorStream = &errorStream; }
+	std::ostream* getErrorStream() const { return errorStream; }
+	void setErrorStream(std::ostream& errorStream) { this->errorStream = &errorStream; }
 
 };
