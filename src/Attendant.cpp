@@ -38,7 +38,6 @@ Attendant::~Attendant() {
     if (refCount > 1) {
         std::cout << "Deleting attendant with multiple references to it!\n";
     }
-
 }
 
 
@@ -49,6 +48,10 @@ std::string Attendant::getName() const {
 
 void Attendant::setName(std::string name) {
     this->name = name;
+}
+
+void Attendant::setAttName(std::string newName) {
+    name = newName;
 }
 
 int Attendant::getParticipantCount() const {

@@ -62,8 +62,6 @@ void Pairings::assignFromCSV(CSV& file) {
 			}
 		}
 	}
-
-
 }
 
 int Pairings::isTeacher(std::string buffer[], int index) {
@@ -121,34 +119,71 @@ void Pairings::printEvent(int index){
 
 
 
-void Pairings::editor(int x) {
+bool Pairings::editor() {
 	clearEx(OFFSET);
 	printEvent(ALL);
+	std::cout << "\nReturn to Main Menu";
 	setCursX(0);
 	setCursY(OFFSET);
 	int i = selectEvent(OFFSET);
 	int cmd;
+	std::string buffer;
 	clearEx(OFFSET);
 	switch (getCursY() - OFFSET) {
 	case 0:
-		std::cout << eventList[i]->getName();
-		break;
+		std::cout << "Current Name:\n";
+		std::cout << eventList[i].getName() << "\n\n";
+		std::cout << "Please enter a new name: ";
+		std::cin >> buffer;
+		eventList[i].setName(buffer);
+		clearEx(OFFSET);
+		return true;
 	case 1:
-		std::cout << eventList[i]->getHours();
-		break;
+		std::cout << "Current hours per week:\n";
+		std::cout << eventList[i].getHours() << "\n\n";
+		std::cout << "Please enter a new value: ";
+		int hours;
+		std::cin >> hours;
+		eventList[i].setHours(hours);
+		clearEx(OFFSET);
+		std::cout << eventList[i].getHours();
+		return true;
 	case 2:
-		std::cout << roomTypeToString(eventList[i]->getRoomReq());
+		std::cout << "Current room type required:\n";
+		std::cout << roomTypeToString(eventList[i].getRoomReq());
+		std::cout << "\n\nPlease select a new room type:\nLecture Hall\nTech Lab\nComputer Lab\nSports Hall";
+		setCursX(0);
+		setCursY(7);
 		cmd = 0;
 		while (cmd == 0) {
 			cmd = menuKeyParser(_getch());
 		}
 		if (cmd == 1) {
-			eventList[i]->setRoomReq(intToRoomType(getCursY() - OFFSET));
+			std::cout << getCursY();
+			eventList[i].setRoomReq(intToRoomType(getCursY() - 7));
+			std::cout << roomTypeToString(eventList[i].getRoomReq());
 		}
-		break;
+		return true;
 	case 3:
-		std::cout << eventList[i]->getAttendantNamesStr();
+		//for (int i = 0; i < eventList[i].getCurrentAttCount(); i++) {
+		//	eventList[i].getAttendantNamesStr(i);
+		//	std::cout << "\n";
+		//}
+		//cmd = 0;
+		//while (cmd == 0) {
+		//	cmd = menuKeyParser(_getch());
+		//}
+		//if (cmd == 1) {
+		//	std::string name;
+		//	std::cout << "Please enter a new Name: ";
+		//	std::cin >> name;
+		//	eventList[i].changeAttendantName(getCursY() - OFFSET, name);
+		//}
 		break;
+	case 5:
+		return false;
+	default:
+		return true;
 	}
 }
 
@@ -172,14 +207,7 @@ int Pairings::selectEvent(int offset) {
 		}
 		if (cmd == 1) {
 
-
-
-
 			return i;
-			//Should this be i?
-
-
-
 
 		}
 	}

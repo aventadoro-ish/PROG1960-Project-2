@@ -61,6 +61,13 @@ std::string Event::getAttendantNamesStr() const {
 	
 	return out;
 }
+std::string Event::getAttendantNamesStr(int index) {
+	if (currentAttCount == 0) {
+		return "/nobody/";
+	}
+
+	std::string out = attendants[index]->getName();
+}
 
 
 void Event::appendAttendant(const Attendant& att) {
@@ -91,6 +98,10 @@ void Event::appendAttendant(std::string name, int partCount) {
 void Event::changeAttendantPtr(int idx, Attendant* ptr) {
 	delete attendants[idx];
 	attendants[idx] = ptr;
+}
+
+void Event::changeAttendantName(int idx, std::string name){
+	attendants[idx]->setAttName(name);
 }
 
 

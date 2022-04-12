@@ -15,6 +15,7 @@ public:
 
 	virtual std::string getName() const;
 	virtual void setName(std::string name);
+	void setAttName(std::string);
 
 	virtual int getParticipantCount() const;
 	virtual void setParticipantCount(int participantCount);
