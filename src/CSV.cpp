@@ -3,16 +3,18 @@
 #define BLANK_LINE buffer.find_first_not_of(' ', ref) == NPOS
 #define LAST_CELL 2
 
-CSV::CSV(){
+CSV::CSV() {
 	fileName = "NO FILE NAME ASSIGNED";
 }
 
 CSV::CSV(std::string fileExt) {
+
 	setFileName(fileExt);
 	importCSV();
 }
 
 CSV::~CSV() {
+
 	delete[] arr;
 }
 
@@ -95,8 +97,13 @@ bool CSV::importCSV() {
 	for (int x = 0; x < rowCount; x++) {
 		ref = 0;
 		flag = 0;
+		if (file.eof()) {
+			//std::cout << "EOF!\n";
+			break;
+		}
 		std::getline(file, buffer);
-		if (buffer.empty()) {
+		//std::cout << x << ": " << buffer << " -> ";
+		if (buffer.length() == 0) {
 			x--;
 			continue;
 		}
@@ -141,7 +148,9 @@ bool CSV::importCSV() {
 			else {
 				arr[x][y] = "";
 			}
+			//std::cout << arr[x][y] << ", ";
 		}
+		//std::cout << "\n\n";
 	}
 	file.close();
 }
@@ -172,7 +181,7 @@ void CSV::countArrDimensions(std::ifstream& file) {
 					tempColCount++;
 				}
 			}
-			if (colCount < tempColCount) colCount = tempColCount;
+			if (colCount < tempColCount) colCount = tempColCount + 1;
 			rowCount++;
 			buffer.erase();
 			tempColCount = 0;

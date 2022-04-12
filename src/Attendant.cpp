@@ -4,7 +4,6 @@
 /*                      class Attendant()                           */
 /********************************************************************/
 
-int Attendant::instCount = 0;// TODO: temp var for testing
 
 Attendant::Attendant() {
     name = "John Doe";
@@ -14,7 +13,6 @@ Attendant::Attendant() {
     for (int i = 0; i < 7; i++) {
         nHoursArr[i] = 0;
     }
-    ++instCount; // TODO: temp var for testing
     //std::cout << " attendand constructor (" << instCount << ")\n";
 
 
@@ -31,7 +29,6 @@ Attendant::Attendant(std::string name, int participantCount) {
     }
 
 
-    ++instCount; // TODO: temp var for testing
     //std::cout << " attendand constructor (" << instCount << ")\n";
 
 }
@@ -42,7 +39,6 @@ Attendant::~Attendant() {
         std::cout << "Deleting attendant with multiple references to it!\n";
     }
 
-    --instCount; // TODO: temp var for testing
 }
 
 

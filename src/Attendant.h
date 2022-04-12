@@ -30,7 +30,6 @@ public:
 	int incNHoursOnDay(int day) { return ++nHoursArr[day]; }
 	int dayNHoursOnDay(int day) { return --nHoursArr[day]; }
 
-	static int instCount; // TODO: temp var for testing
 
 
 };

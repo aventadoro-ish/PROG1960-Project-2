@@ -43,25 +43,31 @@ std::ostream& operator<<(std::ostream& out_stream, const Room& r) {
 }
 
 Room::Room() {
+	//std::cout << "Room\n";
+
 	name = "-";
 	seats = 0;
 	type = RoomType::NULL_ROOM;
 }
 
 Room::Room(std::string name, int seats, RoomType type) {
+	//std::cout << "Room\n";
+
 	this->name = name;
 	this->seats = seats;
 	this->type = type;
 }
 
 Room::Room(std::string name, int seats, char typeChar) {
+	//std::cout << "Room\n";
+
 	this->name = name;
 	this->seats = seats;
 	this->type = charToRoomType(typeChar);
 }
 
 Room::~Room() {
-	std::cout << "~room" << std::endl;
+	//std::cout << "!Room\n";
 
 }
 

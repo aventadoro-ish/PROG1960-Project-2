@@ -12,8 +12,27 @@ Parameters::Parameters() {
     isEarlyPreffered = DEFAULT_IS_EARLY_PREFERED;
 }
 
-Parameters::~Parameters() {
+Parameters::Parameters(std::string fileExt) : CSV(fileExt) {
+    oph = OpHours();
+    rooms = new Room * [MAX_ROOMS];
+    nRooms = 0;
 
+    // assign default preferences
+    maxClassLength = DEFAULT_MAX_CLASS_LENGH;
+    instructorTimeCostMultiplier = DEFAULT_INSTRUCTOR_TIME_COST_MULTIPLIER;
+    studentTimeCostMultiplier = DEFAULT_STUDENT_TIME_COST_MULTIPLIER;
+    isEarlyPreffered = DEFAULT_IS_EARLY_PREFERED;
+
+    importCSV(); // not running it the second time breakes it
+    assignFromCSV();
+}
+
+
+Parameters::~Parameters() {
+    for (int i = 0; i < nRooms; i++) {
+        delete rooms[i];
+    }
+    delete rooms;
 }
 
 bool Parameters::assignFromCSV() {
@@ -22,21 +41,26 @@ bool Parameters::assignFromCSV() {
     int dayOfWeek;
 
     if ((index = (findMatchingIndex("rooms") >= 0))) {
-        index++;
         while (true) {
             buffer = getRowData(index);
+
+            //std::cout << buffer[0] << "; " << buffer[2] << "; " << buffer[1][0] << std::endl;
+
             if (buffer[1] == "") break;
-            Room temp = Room(buffer[0], stoi(buffer[2]), buffer[1][0]);
+
+            Room temp = Room(buffer[0], std::stoi(buffer[2]), buffer[1][0]);
             appendRoom(temp);
             index++;
         }
+        index++;
+
     }
     else {
         std::cout << "ERROR: ROOMS INDEX NOT FOUND. (Parameters::assignFromCSV function)";
         return false;
     }
 
-    if (index = (findMatchingIndex("oph"))) {
+    if (index = (findMatchingIndex("work days"))) {
         index++;
         while (true) {
             buffer = getRowData(index);

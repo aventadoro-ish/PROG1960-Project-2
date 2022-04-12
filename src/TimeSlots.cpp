@@ -33,13 +33,16 @@ TimeSlot::TimeSlot(int startTime, DaysOfWeek dow, Room* room) {
 }
 
 TimeSlot::~TimeSlot() {
-	std::cout << "~Timeslot destructor " << std::endl;
+	//std::cout << "~Timeslot destructor " << std::endl;
 	for (int i = 0; i < MAX_ATTENDANTS; ++i) {
-		if (attendants[i]->getRefCount() > 1) {
-			attendants[i]->decRefCount();
-		} else {
-			delete attendants[i];
+		if (attendants[i] != NULL) {
+			if (attendants[i]->getRefCount() > 1) {
+				attendants[i]->decRefCount();
+			} else {
+				delete attendants[i];
+			}
 		}
+		
 	}
 }
 
@@ -180,7 +183,7 @@ std::string TimeSlotManager::getHeaderForRow(int y) {
 //}
 
 TimeSlotManager::TimeSlotManager(Room* rooms[], int nRooms, const OpHours& opHours) {
-	std::cout << "TSM constructor" << std::endl;
+	//std::cout << "TSM constructor" << std::endl;
 	this->rooms = rooms;
 	
 	nHours = opHours.getTotalHours();
@@ -209,6 +212,8 @@ TimeSlotManager::TimeSlotManager(Room* rooms[], int nRooms, const OpHours& opHou
 }
 
 TimeSlotManager::~TimeSlotManager() {
+	//std::cout << "TSM destructor" << std::endl;
+
 	for (int h = 0; h < nHours; ++h) {
 		for (int r = 0; r < nRooms; ++r) {
 			delete slots[h][r];
