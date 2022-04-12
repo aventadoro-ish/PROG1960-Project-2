@@ -47,8 +47,6 @@ void Pairings::assignFromCSV(CSV& file) {
 			}
 		}
 	}
-
-
 }
 
 int Pairings::isTeacher(std::string buffer[], int index) {
@@ -74,13 +72,6 @@ void Pairings::printEvent(int index){
 			std::cout << eventList[i].getName() << " | ";
 			std::cout << eventList[i].getHours() << " | ";
 			std::cout << roomTypeToString(eventList[i].getRoomReq());
-
-
-			///DELETE CURRENT ATT COUNT -- IT WILL BE ASSOCIATED WITH ATTENDANTS
-			std::cout << eventList[i].getCurrentAttCount() << " | ";
-			//ONLY TO BE USED FOR TESTING
-
-
 			std::cout << eventList[i].getAttendantNamesStr() << " | ";
 			std::cout << " | ";
 			std::cout << std::endl;
@@ -102,33 +93,65 @@ void Pairings::printEvent(int index){
 
 
 
-void Pairings::editor(int x) {
+void Pairings::editor() {
 	clearEx(OFFSET);
 	printEvent(ALL);
 	setCursX(0);
 	setCursY(OFFSET);
 	int i = selectEvent(OFFSET);
 	int cmd;
+	std::string buffer;
 	clearEx(OFFSET);
 	switch (getCursY() - OFFSET) {
 	case 0:
-		std::cout << eventList[i].getName();
+		std::cout << "Current Name:\n";
+		std::cout << eventList[i].getName() << "\n\n";
+		std::cout << "Please enter a new name: ";
+		std::cin >> buffer;
+		eventList[i].setName(buffer);
+		clearEx(OFFSET);
 		break;
 	case 1:
+		std::cout << "Current hours per week:\n";
+		std::cout << eventList[i].getHours() << "\n\n";
+		std::cout << "Please enter a new value: ";
+		int hours;
+		std::cin >> hours;
+		eventList[i].setHours(hours);
+		clearEx(OFFSET);
 		std::cout << eventList[i].getHours();
 		break;
 	case 2:
+		std::cout << "Current room type required:\n";
 		std::cout << roomTypeToString(eventList[i].getRoomReq());
+		std::cout << "\n\nPlease select a new room type:\nLecture Hall\nTech Lab\nComputer Lab\nSports Hall";
+		setCursX(0);
+		setCursY(7);
 		cmd = 0;
 		while (cmd == 0) {
 			cmd = menuKeyParser(_getch());
 		}
 		if (cmd == 1) {
-			eventList[i].setRoomReq(intToRoomType(getCursY() - OFFSET));
+			std::cout << getCursY();
+			eventList[i].setRoomReq(intToRoomType(getCursY() - 7));
+			std::cout << roomTypeToString(eventList[i].getRoomReq());
 		}
 		break;
 	case 3:
-		std::cout << eventList[i].getAttendantNamesStr();
+		//for (int i = 0; i < eventList[i].getCurrentAttCount(); i++) {
+		//	eventList[i].getAttendantNamesStr(i);
+		//	std::cout << "\n";
+		//}
+		//cmd = 0;
+		//while (cmd == 0) {
+		//	cmd = menuKeyParser(_getch());
+		//}
+		//if (cmd == 1) {
+		//	std::string name;
+		//	std::cout << "Please enter a new Name: ";
+		//	std::cin >> name;
+		//	eventList[i].changeAttendantName(getCursY() - OFFSET, name);
+		//}
 		break;
 	}
 }
@@ -153,14 +176,7 @@ int Pairings::selectEvent(int offset) {
 		}
 		if (cmd == 1) {
 
-
-
-
 			return i;
-			//Should this be i?
-
-
-
 
 		}
 	}

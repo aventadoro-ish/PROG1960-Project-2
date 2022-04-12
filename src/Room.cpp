@@ -100,3 +100,4 @@ void Room::setType(std::string type) {
 	temp = charToRoomType(type[0]);
 	setType(temp);
 }
+

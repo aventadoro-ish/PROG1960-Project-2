@@ -25,27 +25,30 @@ public:
 	int findMatchingIndex(std::string);
 
 
-    OpHours getOph() const;
+    OpHours getOph() const;//
     void setOph(OpHours oph);
 
-	int getMaxClassLength() const;
+	int getMaxClassLength() const;//
 	void setMaxClassLength(int maxClassLength);
 
 	void appendRoom(const Room& r);
 
 	Room** getRoomsPtr();
-	int getRoomNumber();
+	int getRoomNumber();//
 
 	void testPrintParams();
 
-    int getInstructorTimeCostMultiplier() const;
+    int getInstructorTimeCostMultiplier() const;//
     void setInstructorTimeCostMultiplier(int instructorTimeCostMultiplier);
 
-    int getStudentTimeCostMultiplier() const;
+    int getStudentTimeCostMultiplier() const;//
     void setStudentTimeCostMultiplier(int studentTimeCostMultiplier);
 
-    bool getIsEarlyPreffered() const;
+    bool getIsEarlyPreffered() const;//
     void setIsEarlyPreffered(bool isEarlyPreffered);
 
+	void printAll();
+	bool editor();
+	
 };
 

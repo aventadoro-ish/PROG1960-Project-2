@@ -182,3 +182,53 @@ void Parameters::setIsEarlyPreffered(bool isEarlyPreffered)
     this->isEarlyPreffered = isEarlyPreffered;
 }
 
+void Parameters::printAll() {
+    
+}
+
+bool Parameters::editor() {
+    clearEx(3);
+    std::cout << "NOTE: USE NUM KEYS TO NAVIGATE THIS EDITOR\n\n";
+    std::cout << "Please select a parameter to modify:\n";
+    std::cout << "1. Max Class Length = " << getMaxClassLength() << std::endl;
+    std::cout << "2. Instructor Time Cost Muiltiplier = " << getInstructorTimeCostMultiplier() << std::endl;
+    std::cout << "3. Student Time Cost Multiplier = " << getStudentTimeCostMultiplier() << std::endl;
+    std::cout << "4. isEarlyPreffered? = " << getIsEarlyPreffered() << std::endl;
+    std::cout << "\n5. Exit to main menu\n\n";
+    int menuSel = 0;
+    std::cin >> menuSel;
+    int buff;
+    switch (menuSel) {
+    case 1:
+        std::cout << "Please enter a new max class length: ";
+        std::cin >> buff;
+        setMaxClassLength(buff);
+        break;
+    case 2:
+        std::cout << "Please enter a new Instructor Time Cost Multiplier: ";
+        std::cin >> buff;
+        setInstructorTimeCostMultiplier(buff);
+        break;
+    case 3:
+        std::cout << "Please enter a new Student Time Cost Multiplier: ";
+        std::cin >> buff;
+        setStudentTimeCostMultiplier(buff);
+        break;
+    case 4:
+        std::cout << "What would you like to set IsEarlyPrefferred to: ";
+        std::cout << "\n\n1. True\n2. False\n";
+        std::cin >> buff;
+        switch (buff) {
+        case 1:
+            setIsEarlyPreffered(true);
+            break;
+        case 2:
+            setIsEarlyPreffered(false);
+            break;
+        }
+        break;
+    case 5:
+        return false;
+    }
+    return true;
+}

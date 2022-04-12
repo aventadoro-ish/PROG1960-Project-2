@@ -28,7 +28,7 @@ public:
 	
 	int selectEvent(int);
 	void printEvent(int);
-	void editor(int);
+	void editor();
 		
 	int getNEvents() { return numEvents; }
 	Event* getEventListPtr() { return eventList; }
