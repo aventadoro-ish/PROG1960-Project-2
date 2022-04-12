@@ -1,14 +1,13 @@
 ROOMS
-A1312,Technical Lab,40
-A1521,Lecture Hall,100
+Lecture Hall A,Lecture Hall,50
+Lecture Hall B,L,170
+Computer Lab A,c,20
+Tech Lab A, t,50
+Sports Hall A,s,50
 
 
 WORK DAYS
-MON,10,12
-TUE,6,20
-FRI,8,14
-
-NEW INFO
-feef
-fef
-fe
+MON,8,12
+TUE,8,12
+THU,8,15
+FRI,10,12

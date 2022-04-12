@@ -8,7 +8,7 @@
 
 class Scheduler {
 private:
-	Parameters param;
+	Parameters* param;
 	Event* events[MAX_EVENTS];
 	int nEvents;
 	TimeSlotManager* tsm;
@@ -34,11 +34,11 @@ private:
 
 public:
 	Scheduler();
-	Scheduler(Parameters para);
+	Scheduler(Parameters* para);
 	~Scheduler();
 
-	Parameters getParam() const { return param; }
-	void setParam(Parameters param) { this->param = param; }
+	Parameters* getParam() const { return param; }
+	void setParam(Parameters* param) { this->param = param; }
 
 	void syncAttendantReferences();
 

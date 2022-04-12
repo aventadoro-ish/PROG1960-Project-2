@@ -23,19 +23,15 @@ public:
 	int isTeacher(std::string[], int);
 
 
-
-
-
-
-
-
 	//Editor Function
 
 	
 	int selectEvent(int);
 	void printEvent(int);
 	void editor(int);
-
+		
+	int getNEvents() { return numEvents; }
+	Event* getEventListPtr() { return eventList; }
 
 
 };

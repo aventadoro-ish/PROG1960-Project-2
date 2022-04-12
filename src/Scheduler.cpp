@@ -12,18 +12,18 @@ int findAttendantInArray(string name, int partCount, Attendant* bufPtr[], int bu
 // sets default data
 Scheduler::Scheduler() {
 	std::cout << "parameter-less Scheduler constructor called!!!" << std::endl;
-	param = Parameters();
+	param = new Parameters();
 	for (int i = 0; i < MAX_EVENTS; ++i) {
 		events[i] = NULL;
 	}
 	nEvents = 0;
 	errorStream = &std::cerr;
 
-	tsm = new TimeSlotManager(param.getRoomsPtr(), param.getRoomNumber(), param.getOph());
+	tsm = new TimeSlotManager(param->getRoomsPtr(), param->getRoomNumber(), param->getOph());
 }
 
 // sets default data except for papameters
-Scheduler::Scheduler(Parameters para) {
+Scheduler::Scheduler(Parameters* para) {
 	param = para;
 	for (int i = 0; i < MAX_EVENTS; ++i) {
 		events[i] = NULL;
@@ -32,20 +32,21 @@ Scheduler::Scheduler(Parameters para) {
 
 	errorStream = &std::cerr;
 
-	tsm =  new TimeSlotManager(param.getRoomsPtr(), param.getRoomNumber(), param.getOph());
+	tsm =  new TimeSlotManager(param->getRoomsPtr(), param->getRoomNumber(), param->getOph());
 }
 
 Scheduler::~Scheduler() {
 	for (int i = 0; i < nEvents; ++i) {
 		delete events[i];
 	}
+	delete tsm;
 }
 
 /********************************DATA_FLOW**********************************************/
 // creates new instance of the event and plainly copies data
 void Scheduler::appendEventSplit(const Event& e) {
 	// divide round up
-	int splits = (e.getHours() + param.getMaxClassLength() - 1) / param.getMaxClassLength();
+	int splits = (e.getHours() + param->getMaxClassLength() - 1) / param->getMaxClassLength();
 	int totalHours = e.getHours();
 	int hCounter = 0;
 
@@ -59,7 +60,7 @@ void Scheduler::appendEventSplit(const Event& e) {
 		for (int i = 0; i < e.getCurrentAttCount(); ++i) {
 			events[nEvents]->appendAttendant(*e.getAttendant(i));
 		}
-		int thisEventHours = std::min(totalHours - hCounter, param.getMaxClassLength());
+		int thisEventHours = std::min(totalHours - hCounter, param->getMaxClassLength());
 		hCounter += thisEventHours;
 
 		events[nEvents]->setHours(thisEventHours);
@@ -131,8 +132,8 @@ int Scheduler::validateInput() {
 		bool hasRoom = false;
 		bool hasSeats = false;
 
-		for (int rIdx = 0; rIdx < param.getRoomNumber(); rIdx++) {
-			Room* r = param.getRoomsPtr()[rIdx];
+		for (int rIdx = 0; rIdx < param->getRoomNumber(); rIdx++) {
+			Room* r = param->getRoomsPtr()[rIdx];
 
 			if (e->getRoomReq() == r->getType()) {
 				hasRoom = true;
@@ -191,10 +192,10 @@ void Scheduler::getDailyScoreForEvent(Event* e, int resArrayPtr[7]) {
 			resArrayPtr[day] = 0;
 			if (att->getParticipantCount() == 0) {
 				// instructor
-				resArrayPtr[day] += att->getNBusyHoursOnDay(day) * param.getInstructorTimeCostMultiplier();
+				resArrayPtr[day] += att->getNBusyHoursOnDay(day) * param->getInstructorTimeCostMultiplier();
 			} else {
 				// student
-				resArrayPtr[day] += att->getNBusyHoursOnDay(day) * param.getStudentTimeCostMultiplier();
+				resArrayPtr[day] += att->getNBusyHoursOnDay(day) * param->getStudentTimeCostMultiplier();
 			}
 
 		}
@@ -206,16 +207,16 @@ int Scheduler::allocateEvent(Event* e) {
 	cout << "Allocating " << e->getName() << endl;
 
 
-	int daysRequired = divide_int_round_up(e->getHours(), param.getMaxClassLength());
-	if (daysRequired > param.getOph().getNWorkDays()) {
-		cout << param.getOph().getNWorkDays() << "  " << daysRequired << "\n";
+	int daysRequired = divide_int_round_up(e->getHours(), param->getMaxClassLength());
+	if (daysRequired > param->getOph().getNWorkDays()) {
+		cout << param->getOph().getNWorkDays() << "  " << daysRequired << "\n";
 		error("An event \"" + e->getName() + "\" requires more days for classes due " \
-			"to max_class_len limitation of " + to_string(param.getMaxClassLength()) + " hours.");
+			"to max_class_len limitation of " + to_string(param->getMaxClassLength()) + " hours.");
 	}
 
 	int hoursAllocated = 0;
 	// looks for long slots first, if not found, reduces the target
-	int targetClassLenght = min(e->getHours(), param.getMaxClassLength());
+	int targetClassLenght = min(e->getHours(), param->getMaxClassLength());
 	for (; targetClassLenght > 0; --targetClassLenght) {
 		if (hoursAllocated >= e->getHours()) break;
 		//cout << "\ttargenClassLen = " << targetClassLenght << endl;
@@ -238,7 +239,7 @@ int Scheduler::allocateEvent(Event* e) {
 			//cout << "\t\ttrying " << daysOfWeekToStr(intToDaysOfWeek(dayOfWeek));
 
 
-			if (param.getOph().getTotalHoursOnDay(dayOfWeek) < thisClassLength) {
+			if (param->getOph().getTotalHoursOnDay(dayOfWeek) < thisClassLength) {
 				//cout << " operational hours\n";
 				continue;
 			}
