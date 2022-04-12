@@ -195,7 +195,7 @@ bool Parameters::editor() {
     std::cout << "2. Instructor Time Cost Muiltiplier = " << getInstructorTimeCostMultiplier() << std::endl;
     std::cout << "3. Student Time Cost Multiplier = " << getStudentTimeCostMultiplier() << std::endl;
     std::cout << "4. isEarlyPreffered? = " << getIsEarlyPreffered() << std::endl;
-    std::cout << "\n5. Exit to main menu\n\n";
+    std::cout << "\n0. Exit to main menu\n\n";
     int menuSel = 0;
     std::cin >> menuSel;
     int buff;
@@ -228,7 +228,7 @@ bool Parameters::editor() {
             break;
         }
         break;
-    case 5:
+    case 0:
         return false;
     }
     return true;

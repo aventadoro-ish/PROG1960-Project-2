@@ -118,10 +118,10 @@ void Pairings::printEvent(int index){
 
 bool Pairings::editor() {
 	clearEx(3);
+	std::cout << "Please select an event to edit:\n\n";
 	printEvent(ALL);
-	std::cout << "\n5. Return to Main Menu";
+	std::cout << "\n0. Return to Main Menu\n\n";
 	int i;
-	std::cout << "\n\nPlease select an event to edit:\n";
 	std::cin >> i;
 	i--;
 	std::string buffer;
@@ -160,23 +160,21 @@ bool Pairings::editor() {
 		//std::cout << roomTypeToString(eventList[i]->getRoomReq());
 		return true;
 	case 4:
-		std::cout << "IMPLEMENTAION FAILED";
-		//for (int i = 0; i < eventList[i].getCurrentAttCount(); i++) {
-		//	eventList[i].getAttendantNamesStr(i);
-		//	std::cout << "\n";
-		//}
-		//cmd = 0;
-		//while (cmd == 0) {
-		//	cmd = menuKeyParser(_getch());
-		//}
-		//if (cmd == 1) {
-		//	std::string name;
-		//	std::cout << "Please enter a new Name: ";
-		//	std::cin >> name;
-		//	eventList[i].changeAttendantName(getCursY() - OFFSET, name);
-		//}
+		clearEx(3);
+		std::cout << "Please select an attendant's name to change:\n\n";
+		for (int ii = 0; ii < eventList[i]->getCurrentAttCount(); ii++) {
+			std::cout << ii + 1 << ". ";
+			std::cout << eventList[i]->getAttendantNamesStr(ii);
+			std::cout << "\n";
+		}
+		std::cin >> menuSel;
+		buffer.erase();
+		std::cin.ignore(1000, '\n');
+		std::cout << "Please enter a new Name: ";
+		std::getline(std::cin, buffer);
+		eventList[i]->changeAttendantName(menuSel-1, buffer);
 		break;
-	case 5:
+	case 0:
 		return false;
 	default:
 		return true;

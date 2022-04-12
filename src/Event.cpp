@@ -62,6 +62,7 @@ std::string Event::getAttendantNamesStr(int index) {
 	}
 
 	std::string out = attendants[index]->getName();
+	return out;
 }
 
 
