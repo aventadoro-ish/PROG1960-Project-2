@@ -7,7 +7,7 @@
 
 class Pairings : public KeyNav{
 private:
-	Event* eventList;
+	Event* eventList[MAX_EVENTS];
 	int numEvents;
 	int numAttendants = 0;
 
@@ -31,7 +31,7 @@ public:
 	void editor(int);
 		
 	int getNEvents() { return numEvents; }
-	Event* getEventListPtr() { return eventList; }
+	Event** getEventListPtr() { return eventList; }
 
 
 };

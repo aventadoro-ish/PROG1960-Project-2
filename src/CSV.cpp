@@ -8,9 +8,16 @@ CSV::CSV() {
 }
 
 CSV::CSV(std::string fileExt) {
+	rowCount = 0;
+	colCount = 1;
+	try {
+		setFileName(fileExt);
+		importCSV();
+	} catch (const std::exception& e) {
+		throw e;
+	}
 
-	setFileName(fileExt);
-	importCSV();
+
 }
 
 CSV::~CSV() {
@@ -40,7 +47,9 @@ void CSV::setFileName(std::string newName) {
 		file.close();
 	}
 	else {
-		std::cout << "Error Opening File: " << fileName << std::endl;
+		//std::cout << "Error Opening File: " << fileName << std::endl;
+		throw std::exception(("Error Opening File: " + newName).c_str());
+
 	}
 		
 
@@ -53,13 +62,6 @@ void CSV::setColCount(int y) { colCount = y; }
 void CSV::setArrVal(int x, int y, std::string data) {
 	arr[x][y] = data;
 }
-
-
-
-
-
-
-
 
 
 
@@ -91,6 +93,7 @@ bool CSV::importCSV() {
 	file.open(fileName);
 	if (!file.is_open()) {
 		std::cout << "Error Opening File: " << fileName << std::endl;
+		//throw std::exception(("Error Opening File: " + fileName).c_str());
 		return false;
 	}
 
@@ -152,6 +155,7 @@ bool CSV::importCSV() {
 		}
 		//std::cout << "\n\n";
 	}
+	std::cout << "input done\n";
 	file.close();
 }
 bool CSV::initArr(std::ifstream& file) {

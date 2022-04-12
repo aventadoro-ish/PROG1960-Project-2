@@ -44,7 +44,7 @@ bool Parameters::assignFromCSV() {
         while (true) {
             buffer = getRowData(index);
 
-            //std::cout << buffer[0] << "; " << buffer[2] << "; " << buffer[1][0] << std::endl;
+            std::cout << buffer[0] << "; " << buffer[2] << "; " << buffer[1][0] << std::endl;
 
             if (buffer[1] == "") break;
 
@@ -68,6 +68,7 @@ bool Parameters::assignFromCSV() {
             dayOfWeek = dowStrToInt(buffer[0]);
             oph.setStartTime(dayOfWeek, stoi(buffer[1]));
             oph.setEndTime(dayOfWeek, stoi(buffer[2]));
+            std::cout << "day of week hours parsed\n";
             index++;
         }
     }

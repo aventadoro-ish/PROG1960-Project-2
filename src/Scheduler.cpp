@@ -1,6 +1,8 @@
 #include "Scheduler.h"
 #include <algorithm>    // std::random_shuffle
 
+#include <fstream>
+
 using namespace std;
 
 int getNthSmallesIndex(int nth, const int temp[]);
@@ -176,11 +178,18 @@ void Scheduler::generateSchedule(int shuffleSeed) {
 	for (int i = 0; i < nEvents; i++) {
 		Event* e = events[i];
 		int allocCode = allocateEvent(e);
-
-
 	}
 
-	tsm->print(std::cout);
+
+	// write to file
+	ofstream file;
+	file.open("Output Schedule" + to_string(shuffleSeed) + ".csv");
+	if (!file.is_open()) {
+		error("could not open output file", true);
+	}
+
+	tsm->print(file);
+	file.close();
 
 }
 

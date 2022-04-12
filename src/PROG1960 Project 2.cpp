@@ -7,30 +7,102 @@
 #include "playground.h"
 
 int mainMenu();
-std::string selectPairings();
-std::string selectParams();
 
 using namespace std;
 
 int main() {
-	playground();
+	//playground();
+	cout << "\n\n\n\n\n";
+	return mainMenu();
+
+}
+
+int mainMenu() {
+	// open params
+	std::string paramFileName;
+	{
+		Parameters para;
+		for (;;) {
+
+			try {
+				cout << "Enter parameter filename: ";
+				cin >> paramFileName;
+				para = Parameters(paramFileName);
+				break;
 
 
-    std::string paramFile;
-    std::string pairFile;
+			} catch (const std::exception& e) {
+				cout << e.what() << "\nRetry? (y/n) ";
+				char c;
+				cin >> c;
+				if (!(c == 'y' || c == 'Y')) return 0;
+				cin.ignore(1000, '\n');
+			}
+		}
+	}
+	
+	// open pairings
+	std::string pairFile;
+	{
+		Pairings pairings;
+		for (;;) {
+			try {
+				cout << "Enter pairings filename: ";
+				cin >> pairFile;
+				CSV pairCSV(pairFile);
+				pairings = Pairings(pairCSV);
+				break;
 
-    cin >> paramFile;
-    cin >> pairFile;
-    CSV pairCSV(pairFile);
 
-    Pairings pairObj(pairCSV);
-    Parameters paramObj(paramFile);
+			} catch (const std::exception& e) {
+				cout << e.what() << "\nRetry? (y/n) ";
+				char c;
+				cin >> c;
+				if (!(c == 'y' || c == 'Y')) return 0;
+				cin.ignore(1000, '\n');
+			}
+		}
+	}
 
-    bool menu = true;
-    while(menu = true){
+	
+
+	cout << "Edit events? (y/n) ";
+	char c;
+	cin >> c;
+	cin.ignore(1000, '\n');
+	if (c == 'y' || c == 'Y') {
+		// TODO implement
+	}
+
+	Parameters para1 = Parameters(paramFileName);
+	CSV pairCSV1(pairFile);
+	Pairings pairings1 = Pairings(pairCSV1);
 
 
-    }
+	cout << "How many schedule variants to output? (recomended 1-4) ";
+	int scheduleVariants;
+	cin >> scheduleVariants;
+
+	Scheduler sch = Scheduler(&para1);
+	Event** evts = pairings1.getEventListPtr();
+	for (int i = 0; i < pairings1.getNEvents(); i++) {
+		sch.appendEvent(*evts[i]);
+	}
+
+	sch.setErrorStream(std::cout);
+
+	sch.validateInput();
+
+	sch.syncAttendantReferences();
+
+	for (int i = 0; i < scheduleVariants; i++) {
+		sch.generateSchedule(1);
+	}
+	
 
 
+
+
+
+	return 0;
 }

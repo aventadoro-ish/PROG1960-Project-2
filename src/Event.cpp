@@ -1,6 +1,8 @@
 #include "Event.h"
 
 Event::Event() {
+	std::cout << "Event";
+
 	name = "";
 	hours = 0;
 	for (int i = 0; i < MAX_ATTENDANTS; ++i) {
@@ -12,6 +14,9 @@ Event::Event() {
 }
 
 Event::~Event() {
+	std::cout << "!Event";
+
+
 	//delete[] attendants;	// this: C4154 deletion of an array expression; conversion to pointer supplied
 	//delete[] &attendants; // does not give a warning, but still crashes the program
 	for (int i = 0; i < currentAttCount; ++i) {
