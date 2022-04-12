@@ -1,0 +1,16 @@
+ROOMS,,
+Lecture Hall A,Lecture Hall,50
+Lecture Hall B,L,170
+Computer Lab A,c,30
+Tech Lab A,t,50
+Sports Hall A,s,50
+Sports Hall B,Sports Hall,20
+Lecture Hall C,l,30
+,,
+,,
+WORK DAYS,,
+MON,8,16
+TUE,8,16
+WED,8,16
+THU,8,16
+FRI,10,14
