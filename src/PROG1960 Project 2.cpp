@@ -11,7 +11,7 @@ int mainMenu();
 using namespace std;
 
 int main() {
-	//playground();
+	playground();
 	cout << "\n\n\n\n\n";
 	return mainMenu();
 
