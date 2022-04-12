@@ -10,8 +10,6 @@ private:
 	std::string** arr;
 	int rowCount = 0;
 	int colCount = 1;
-	int* xLen;
-	int* yLen;
 
 public:
 	CSV();

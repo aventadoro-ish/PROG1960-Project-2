@@ -18,6 +18,7 @@ enum class RoomType {
  */
 RoomType charToRoomType(char c);
 std::string roomTypeToString(RoomType rt);
+RoomType intToRoomType(int);
 
 class Room;
 

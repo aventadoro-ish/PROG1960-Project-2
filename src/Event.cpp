@@ -108,3 +108,4 @@ void Event::setRoomReq(RoomType roomReq) {
     this->roomReq = roomReq;
 }
 
+

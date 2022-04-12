@@ -29,7 +29,23 @@ std::string* CSV::getRowData(int x) {
 int CSV::getRowCount()const { return rowCount; }
 int CSV::getColCount()const { return colCount; }
 
-void CSV::setFileName(std::string newName) {fileName = newName;}
+void CSV::setFileName(std::string newName) {
+	std::ifstream file;
+
+	file.open(newName);
+	if (file.is_open()) {
+		fileName = newName;
+		file.close();
+	}
+	else {
+		std::cout << "Error Opening File: " << fileName << std::endl;
+	}
+		
+
+	
+	
+
+}
 void CSV::setRowCount(int x) { rowCount = x; }
 void CSV::setColCount(int y) { colCount = y; }
 void CSV::setArrVal(int x, int y, std::string data) {

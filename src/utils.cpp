@@ -1,4 +1,5 @@
 #include "utils.h"
+#define OFFSET 3
 
 std::string daysOfWeekToStr(DaysOfWeek d) {
 	switch (d) {

@@ -2,6 +2,8 @@
 #include "CSV.h"
 #include "Event.h"
 #include "KeyNav.h"
+#define ALL 255
+#define NPOS std::string::npos
 
 class Pairings : public KeyNav{
 private:
@@ -20,9 +22,20 @@ public:
 	void initEventList(int);
 	int isTeacher(std::string[], int);
 
+
+
+
+
+
+
+
 	//Editor Function
 
 	
-	void editor();
-	void printEvents();
+	int selectEvent(int);
+	void printEvent(int);
+	void editor(int);
+
+
+
 };

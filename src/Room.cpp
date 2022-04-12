@@ -25,6 +25,18 @@ std::string roomTypeToString(RoomType rt) {
 
 }
 
+RoomType intToRoomType(int t) {
+	switch(t){
+	case 0: return RoomType::LECTURE_HALL;
+	case 1: return RoomType::TECH_LAB;
+	case 2: return RoomType::COMPUTER_LAB;
+	case 3: return RoomType::SPORTS_HALL;
+	default:
+		return RoomType::NULL_ROOM;
+	}
+
+}
+
 std::ostream& operator<<(std::ostream& out_stream, const Room& r) {
 	out_stream << "Room \"" << r.getName() << "\" (" << roomTypeToString(r.getType()) << ") seats: " << r.getSeats();
 	return out_stream;

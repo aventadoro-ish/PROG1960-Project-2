@@ -10,6 +10,11 @@ KeyNav::KeyNav() {
 	cursPos.y = 0;
 }
 
+KeyNav::KeyNav(int x, int y) {
+	setCursX(x);
+	setCursY(y);
+}
+
 KeyNav::KeyNav(int buffX, int buffY, std::string forbidlist, int cursX, int cursY) {
 	buffPos.x = buffX;
 	buffPos.y = buffY;
@@ -90,70 +95,69 @@ void KeyNav::setCursY(int y) {
 }
 
 
-int KeyNav::keyParser(int key, bool insideBuffer) {
+int KeyNav::bufferKeyParser(int key) {
 	int cmd;
-	if (insideBuffer) {
-		switch (key) {
-		case ENTER:
-			getTextBuffer();
-			return 1;
-		case BACKSPACE:
-			if (textBuffer.size() == 0)return 1;
-			textBuffer.erase(textBuffer.size() - 1 );
+	switch (key) {
+	case ENTER:
+		getTextBuffer();
+		return 1;
+	case BACKSPACE:
+		if (textBuffer.size() == 0)return 1;
+		textBuffer.erase(textBuffer.size() - 1 );
+		--cursPos.x;
+		redrawBuffer();
+		break;
+	case 224:
+		cmd = _getch();
+		switch (cmd) {
+		case LEFT:
+			if (cursPos.x == buffPos.x) break;
 			--cursPos.x;
-			redrawBuffer();
-			break;
-		case 224:
-			cmd = _getch();
-			switch (cmd) {
-			case LEFT:
-				if (cursPos.x == buffPos.x) break;
-				--cursPos.x;
-				return 0;
-			case RIGHT:
-				if (CURSOR_RELATIVE == 1) break;
-				++cursPos.x;
-				return 0;
-			case UP:
-				return 0;
-			case DOWN:
-				return 0;
-			default:
-				return 0;
-				}
+			return 0;
+		case RIGHT:
+			if (CURSOR_RELATIVE == 1) break;
+			++cursPos.x;
+			return 0;
+		case UP:
+			return 0;
+		case DOWN:
+			return 0;
 		default:
-				textBuffer.push_back(key);
-				++cursPos.x;
-				redrawBuffer();
-				return 0;
-		}
-	}
-	else {
-		switch (key) {
-		case ENTER:
-			return 1;
-		case BACKSPACE:
-			return 2;
-		case 224:
-			cmd = _getch();
-			switch (cmd) {
-			case UP:
-				--cursPos.y;
-				setCursY(cursPos.y);
-				return 0;
-			case DOWN:
-				++cursPos.y;
-				setCursY(cursPos.y);
-				return 0;
-			case LEFT:
-				--cursPos.x;
-				setCursX(cursPos.x);
-				return 0;
-			case RIGHT:
-				++cursPos.x;
-				setCursX(cursPos.x);
-				return 0;
+			return 0;
 			}
+	default:
+			textBuffer.push_back(key);
+			++cursPos.x;
+			redrawBuffer();
+			return 0;
+	}
+
+}
+
+int KeyNav::menuKeyParser(int key) {
+	int cmd;
+	switch (key) {
+	case ENTER:
+		return 1;
+	case BACKSPACE:
+		return 2;
+	case 224:
+		cmd = _getch();
+		switch (cmd) {
+		case UP:
+			--cursPos.y;
+			setCursY(cursPos.y);
+			break;
+		case DOWN:
+			++cursPos.y;
+			setCursY(cursPos.y);
+			break;
 		}
 	}
+	return 0;
+}
+
+void KeyNav::stdOffset() {
+	setCursX(0);
+	setCursY(3);
 }

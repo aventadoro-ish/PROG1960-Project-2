@@ -27,10 +27,12 @@ private:
 public:
 
 	KeyNav();
+	KeyNav(int, int);
 	KeyNav(int, int, std::string, int = 0, int = 0);//BUFF xy, ForbidKeys, CURSOR xy
 	~KeyNav();
 
-	int keyParser(int, bool);
+	int bufferKeyParser(int);
+	int menuKeyParser(int);
 	
 
 	//MODIFY FORBIDDEN KEYS
@@ -56,5 +58,5 @@ public:
 
 	void setCursY(int);
 	void setCursX(int);
-
+	void stdOffset();
 };
