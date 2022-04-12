@@ -1,7 +1,5 @@
 #include "CSV.h"
 #define NPOS -1
-#define BLANK_LINE buffer.find_first_not_of(' ', ref) == NPOS
-#define LAST_CELL 2
 
 CSV::CSV() {
 	fileName = "NO FILE NAME ASSIGNED";
@@ -107,7 +105,7 @@ bool CSV::importCSV() {
 		}
 		//std::cout << "\n\n";
 	}
-	std::cout << "input done\n";
+	//std::cout << "input done\n";
 	file.close();
 }
 
