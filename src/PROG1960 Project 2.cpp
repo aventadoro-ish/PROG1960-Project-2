@@ -46,7 +46,7 @@ int mainMenu() {
 		
 		for (;;) {
 			try {
-				cout << "Enter pairings filename: ";
+				cout << "\n\nEnter pairings filename: ";
 				cin >> pairFile;
 				CSV pairCSV(pairFile);
 				Pairings pairings = Pairings(pairCSV);
@@ -63,6 +63,8 @@ int mainMenu() {
 		}
 	}
 
+	std::cout << "Press any key to continue...";
+	_getch();
 	clearEx(3);
 	Parameters para1 = Parameters(paramFileName);
 	clearEx(3);
@@ -71,7 +73,7 @@ int mainMenu() {
 
 	clearEx(0);
 	cout << "\n\n\n";
-	cout << "Edit parameters?\n\n1. Yes\n2. No ";
+	cout << "Edit parameters?\n\n1. Yes\n2. No\n\n";
 	int editSel;
 	cin >> editSel;
 	cin.ignore(1000, '\n');
@@ -86,10 +88,6 @@ int mainMenu() {
 	if (editSel == 1) {
 		while (pairings1.editor());
 	}
-	
-
-
-
 	
 
 	clearEx(3);
