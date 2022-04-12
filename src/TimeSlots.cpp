@@ -193,28 +193,21 @@ TimeSlotManager::TimeSlotManager(Room* rooms[], int nRooms, const OpHours& opHou
 
 	int hoursPassed = 0;
 	dayStartIdxs[0] = 0;
-	hoursPassed += opHours.getTotalHoursOnDay(0);
+	hoursPassed += opHours.getTotalHoursOnDay(0) + 1;
 	for (int i = 1; i < 7; i++) {
 		dayStartIdxs[i] = hoursPassed;
 		hoursPassed += opHours.getTotalHoursOnDay(i);
 	}
-	
-	DaysOfWeek day = opHours.getNthHourDayOfWeek(0);
-	int thisDayHourOffset = 0;
 
 	slots = new TimeSlot * *[nHours];
 	for (int h = 0; h < nHours; ++h) {
-		if (day != opHours.getNthHourDayOfWeek(h)) {
-			day = opHours.getNthHourDayOfWeek(h);
-			thisDayHourOffset = opHours.getHoursOnDay(day).first;
-		}
+
 
 
 		slots[h] = new TimeSlot * [nRooms];
 		for (int r = 0; r < nRooms; ++r) {
 
-			slots[h][r] = new TimeSlot(thisDayHourOffset, opHours.getNthHourDayOfWeek(h), rooms[r]);
-			thisDayHourOffset++;
+			slots[h][r] = new TimeSlot(h, opHours.getNthHourDayOfWeek(h), rooms[r]);
 
 		}
 	}
