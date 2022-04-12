@@ -25,7 +25,9 @@ private:
 	// the lower the score, the lesser load
 	void getDailyScoreForEvent(Event* e, int resArrayPtr[7]);
 
+	// tries to fit the event into existing tsm table
 	int allocateEvent(Event* e);
+
 	void error(std::string errMes, bool isCritical = false);
 
 
@@ -35,8 +37,8 @@ public:
 	Scheduler(Parameters para);
 	~Scheduler();
 
-	Parameters getParam() const;
-    void setParam(Parameters param);
+	Parameters getParam() const { return param; }
+    void setParam(Parameters param) { this->param = param; }
 
 	void syncAttendantReferences();
 
