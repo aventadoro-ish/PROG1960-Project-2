@@ -189,7 +189,6 @@ void Parameters::printAll() {
 
 bool Parameters::editor() {
     clearEx(3);
-    std::cout << "NOTE: USE NUM KEYS TO NAVIGATE THIS EDITOR\n\n";
     std::cout << "Please select a parameter to modify:\n";
     std::cout << "1. Max Class Length = " << getMaxClassLength() << std::endl;
     std::cout << "2. Instructor Time Cost Muiltiplier = " << getInstructorTimeCostMultiplier() << std::endl;
