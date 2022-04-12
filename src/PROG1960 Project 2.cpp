@@ -12,7 +12,7 @@ using namespace std;
 
 int main() {
 	//playground();
-	cout << "\n\n\n\n\n";
+	cout << "\n\n\n";
 	return mainMenu();
 
 }
@@ -63,21 +63,36 @@ int mainMenu() {
 		}
 	}
 
+	clearEx(3);
 	Parameters para1 = Parameters(paramFileName);
+	clearEx(3);
 	CSV pairCSV1(pairFile);
 	Pairings pairings1 = Pairings(pairCSV1);
 
-	cout << "Edit events? (y/n) ";
-	char c;
-	cin >> c;
+	clearEx(0);
+	cout << "\n\n\n";
+	cout << "Edit parameters?\n\n1. Yes\n2. No ";
+	int editSel;
+	cin >> editSel;
 	cin.ignore(1000, '\n');
-	if (c == 'y' || c == 'Y') {
-		// TODO implement
+	if (editSel == 1) {
+		while (para1.editor());
 	}
 
+	clearEx(3);
+	cout << "Edit events?\n\n1. Yes\n2. No\n\n";
+	cin >> editSel;
+	cin.ignore(1000, '\n');
+	if (editSel == 1) {
+		while (pairings1.editor());
+	}
 	
 
 
+
+	
+
+	clearEx(3);
 	cout << "How many schedule variants to output? (recomended 1-4) ";
 	int scheduleVariants;
 	cin >> scheduleVariants;
