@@ -51,7 +51,7 @@ void moveCursor(int x, int y) {
 }
 void clearEx(int numOfLines) {
 	if (numOfLines == 0) {
-		printf_s("\33[H\33[0J");
+		printf("\33[H\33[0J");
 		for (int i = 0; i < 300; i++) {
 			printf("\33 M");
 		}

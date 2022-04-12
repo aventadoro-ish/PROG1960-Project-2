@@ -73,6 +73,7 @@ int Pairings::isTeacher(std::string buffer[], int index) {
 	size_t found = buffer[index].find_first_not_of("0123456789");
 	if (found != NPOS) {
 		//std::cout << "*" << buffer[index] << "\n";
+		if (buffer[index + 1] == "") return 1;
 		if (buffer[index + 1].find_first_not_of("0123456789") != NPOS) {
 			return 1;
 		}
@@ -123,11 +124,15 @@ bool Pairings::editor() {
 	std::cout << "\n0. Return to Main Menu\n\n";
 	int i;
 	std::cin >> i;
+	if (i <= 0 || i > (getNEvents() + 1)) {
+		return false;
+	}
 	i--;
 	std::string buffer;
 	clearEx(OFFSET);
 	std::cout << "Please select a field to edit:\n";
-	printEvent(i);
+
+		printEvent(i);
 	int menuSel;
 	std::cin >> menuSel;
 	switch (menuSel) {
@@ -173,7 +178,7 @@ bool Pairings::editor() {
 		std::cout << "Please enter a new Name: ";
 		std::getline(std::cin, buffer);
 		eventList[i]->changeAttendantName(menuSel-1, buffer);
-		break;
+		return true;
 	case 0:
 		return false;
 	default:
