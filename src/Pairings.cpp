@@ -132,25 +132,25 @@ bool Pairings::editor() {
 	switch (getCursY() - OFFSET) {
 	case 0:
 		std::cout << "Current Name:\n";
-		std::cout << eventList[i].getName() << "\n\n";
+		std::cout << eventList[i]->getName() << "\n\n";
 		std::cout << "Please enter a new name: ";
 		std::cin >> buffer;
-		eventList[i].setName(buffer);
+		eventList[i]->setName(buffer);
 		clearEx(OFFSET);
 		return true;
 	case 1:
 		std::cout << "Current hours per week:\n";
-		std::cout << eventList[i].getHours() << "\n\n";
+		std::cout << eventList[i]->getHours() << "\n\n";
 		std::cout << "Please enter a new value: ";
 		int hours;
 		std::cin >> hours;
-		eventList[i].setHours(hours);
+		eventList[i]->setHours(hours);
 		clearEx(OFFSET);
-		std::cout << eventList[i].getHours();
+		std::cout << eventList[i]->getHours();
 		return true;
 	case 2:
 		std::cout << "Current room type required:\n";
-		std::cout << roomTypeToString(eventList[i].getRoomReq());
+		std::cout << roomTypeToString(eventList[i]->getRoomReq());
 		std::cout << "\n\nPlease select a new room type:\nLecture Hall\nTech Lab\nComputer Lab\nSports Hall";
 		setCursX(0);
 		setCursY(7);
@@ -160,8 +160,8 @@ bool Pairings::editor() {
 		}
 		if (cmd == 1) {
 			std::cout << getCursY();
-			eventList[i].setRoomReq(intToRoomType(getCursY() - 7));
-			std::cout << roomTypeToString(eventList[i].getRoomReq());
+			eventList[i]->setRoomReq(intToRoomType(getCursY() - 7));
+			std::cout << roomTypeToString(eventList[i]->getRoomReq());
 		}
 		return true;
 	case 3:
