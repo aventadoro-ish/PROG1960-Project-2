@@ -93,16 +93,8 @@ void Pairings::printEvent(int index){
 			std::cout << i + 1 << ". ";
 			std::cout << eventList[i]->getName() << " | ";
 			std::cout << eventList[i]->getHours() << " | ";
-			std::cout << roomTypeToString(eventList[i]->getRoomReq());
-
-
-			///DELETE CURRENT ATT COUNT -- IT WILL BE ASSOCIATED WITH ATTENDANTS
-			std::cout << eventList[i]->getCurrentAttCount() << " | ";
-			//ONLY TO BE USED FOR TESTING
-
-
+			std::cout << roomTypeToString(eventList[i]->getRoomReq()) << " | ";
 			std::cout << eventList[i]->getAttendantNamesStr() << " | ";
-			std::cout << " | ";
 			std::cout << std::endl;
 			
 		}
@@ -136,12 +128,13 @@ bool Pairings::editor() {
 	printEvent(i);
 	int menuSel;
 	std::cin >> menuSel;
-	switch (i) {
+	switch (menuSel) {
 	case 1:
 		std::cout << "Current Name:\n";
 		std::cout << eventList[i]->getName() << "\n\n";
 		std::cout << "Please enter a new name: ";
-		std::cin >> buffer;
+		std::cin.ignore(1000, '\n');
+		std::getline(std::cin, buffer);
 		eventList[i]->setName(buffer);
 		clearEx(OFFSET);
 		return true;
@@ -161,7 +154,7 @@ bool Pairings::editor() {
 		std::cout << roomTypeToString(eventList[i]->getRoomReq());
 		std::cout << "\n\nPlease select a new room type:\n1. Lecture Hall\n2. Tech Lab\n3. Computer Lab\n4. Sports Hall";
 		std::cin >> menuSel;
-		eventList[i]->setRoomReq(intToRoomType(menuSel));
+		eventList[i]->setRoomReq(intToRoomType(menuSel-1));
 		//std::cout << roomTypeToString(eventList[i]->getRoomReq());
 		return true;
 	case 4:

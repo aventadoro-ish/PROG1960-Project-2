@@ -63,6 +63,7 @@ int mainMenu() {
 		}
 	}
 
+	std::cout << "Press any key to continue...";
 	_getch();
 	clearEx(3);
 	Parameters para1 = Parameters(paramFileName);
