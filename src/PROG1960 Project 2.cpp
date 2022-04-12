@@ -2,6 +2,8 @@
 #include "utils.h"
 #include "KeyNav.h"
 #include "Scheduler.h"
+#include "Pairings.h"
+#include "Parameters.h"
 
 int mainMenu();
 std::string selectPairings();
@@ -15,6 +17,11 @@ int main() {
     CSV pairs(selectPairings());
     CSV params(selectParams());
 
+    Pairings x(pairs);
+
+    x.printEvent(ALL);
+
+    _getch();
         mainMenu();
 
 
@@ -39,7 +46,7 @@ int mainMenu() {
     while (cmd == 0) {
         cmd = cursor.menuKeyParser(_getch());
     }
-    switch (cursor.getCursY() - 3) {
+    switch (cursor.getCursY() - 2) {
     case 1:
         //Change CSV
         return 1;
@@ -63,7 +70,7 @@ std::string selectPairings() {
     std::string usrFile;
     int cmd = 0;
     clearEx(3);
-    std::cout << "Events1.csv\n";
+    std::cout << "parings_example.csv\n";
     std::cout << "Events2.csv\n";
     std::cout << "Events3.csv\n";
     std::cout << "Events4.csv\n";
@@ -75,7 +82,7 @@ std::string selectPairings() {
     }
     switch (cursor.getCursY() - 2) {
     case 1:
-        return "Events 1.csv";
+        return "parings_example.csv";
     case 2:
         return "Events2.csv";
     case 3:
@@ -85,6 +92,7 @@ std::string selectPairings() {
     case 5:
         return "Events5.csv";
     case 6:
+        moveCursor(0, 10);
         cin >> usrFile;
         return usrFile;
     }
@@ -93,7 +101,7 @@ std::string selectParams() {
     std::string usrFile;
     int cmd = 0;
     clearEx(3);
-    std::cout << "Parm1.csv\n";
+    std::cout << "param_example.csv\n";
     std::cout << "Parm2.csv\n";
     std::cout << "Parm3.csv\n";
     std::cout << "Parm4.csv\n";
@@ -105,7 +113,7 @@ std::string selectParams() {
     }
     switch (cursor.getCursY() - 2) {
         case 1:
-            return "Parm1.csv";
+            return "param_example.csv";
         case 2:
             return "Parm2.csv";
         case 3:
@@ -115,6 +123,7 @@ std::string selectParams() {
         case 5:
             return "Parm5.csv";
         case 6:
+            moveCursor(0, 10);
             cin >> usrFile;
             return usrFile;
         }
