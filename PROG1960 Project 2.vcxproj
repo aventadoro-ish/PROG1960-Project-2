@@ -21,7 +21,9 @@
   <ItemGroup>
     <ClCompile Include="src\Attendant.cpp" />
     <ClCompile Include="src\CSV.cpp" />
+    <ClCompile Include="src\Editor.cpp" />
     <ClCompile Include="src\Event.cpp" />
+    <ClCompile Include="src\KeyNav.cpp" />
     <ClCompile Include="src\Parameters.cpp" />
     <ClCompile Include="src\Pairings.cpp" />
     <ClCompile Include="src\playground.cpp" />
@@ -36,7 +38,9 @@
   <ItemGroup>
     <ClInclude Include="src\Attendant.h" />
     <ClInclude Include="src\CSV.h" />
+    <ClInclude Include="src\Editor.h" />
     <ClInclude Include="src\Event.h" />
+    <ClInclude Include="src\KeyNav.h" />
     <ClInclude Include="src\OpHours.h" />
     <ClInclude Include="src\Pairings.h" />
     <ClInclude Include="src\Parameters.h" />

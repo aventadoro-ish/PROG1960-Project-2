@@ -28,5 +28,6 @@ std::string daysOfWeekToStr(DaysOfWeek d);
 DaysOfWeek intToDaysOfWeek(int d);
 int dowStrToInt(std::string d);
 
-
+void moveCursor(int x, int y);
+void clearEx(int numOfLines);
 char* sToLower(std::string);//Lowercase Strings

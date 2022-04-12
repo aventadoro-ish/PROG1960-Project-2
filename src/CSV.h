@@ -3,12 +3,15 @@
 #include <fstream>
 
 
-class CSV {
+
+class CSV{
 private:
 	std::string fileName;
 	std::string** arr;
 	int rowCount = 0;
 	int colCount = 1;
+	int* xLen;
+	int* yLen;
 
 public:
 	CSV();
@@ -30,9 +33,11 @@ public:
 	bool importCSV();
 	void countArrDimensions(std::ifstream&);
 	bool initArr(std::ifstream&);
-	void printArr();
 
-	/*virtual void assignFromCSV();*/
+
+
+
+	//void printArr();
 
 };
 

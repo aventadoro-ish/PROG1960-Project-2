@@ -9,12 +9,10 @@ CSV::CSV(){
 
 CSV::CSV(std::string fileExt) {
 	setFileName(fileExt);
+	importCSV();
 }
 
 CSV::~CSV() {
-	for (int i = rowCount-1; i >= 0; i--) {
-		delete[] arr[i];
-	}
 	delete[] arr;
 }
 
@@ -40,6 +38,26 @@ void CSV::setArrVal(int x, int y, std::string data) {
 
 
 
+
+
+
+
+
+
+
+//void CSV::printArr() {
+//	try {
+//		for (int i = 0; i < rowCount; i++) {
+//			for (int ii = 0; ii < colCount; ii++){
+//				std::cout << arr[i][ii] << " ";
+//			}
+//			std::cout << std::endl;
+//		}
+//	}
+//	catch (...) {
+//		std::cout << "Array uninitialized.";
+//	}
+//}
 
 bool CSV::importCSV() {
 	std::ifstream file;
@@ -145,22 +163,3 @@ void CSV::countArrDimensions(std::ifstream& file) {
 		}
 	}
 }
-
-
-
-
-
-void CSV::printArr() {
-	try {
-		for (int i = 0; i < rowCount; i++) {
-			for (int ii = 0; ii < colCount; ii++){
-				std::cout << arr[i][ii] << " ";
-			}
-			std::cout << std::endl;
-		}
-	}
-	catch (...) {
-		std::cout << "Array uninitialized.";
-	}
-}
-

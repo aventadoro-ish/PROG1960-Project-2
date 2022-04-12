@@ -1,28 +1,28 @@
 #pragma once
 #include "CSV.h"
 #include "Event.h"
+#include "KeyNav.h"
 
-class Pairings : private CSV {
+class Pairings : public KeyNav{
 private:
 	Event* eventList;
 	int numEvents;
 	int numAttendants = 0;
 
 public:
-	Pairings(int);
-	Pairings(std::string fileExt) : CSV(fileExt) {
-		importCSV();
-	}
+	Pairings();
+	Pairings(CSV&);
 	~Pairings();
 
 	//Main Import Function
-	void assignFromCSV();
+	void assignFromCSV(CSV&);
 	//Supporting Import Functions
-	void initEventList();
-	void initEventList(int x);
-	void assignAttendants(std::string*, int);
-	int isTeacher(std::string*, int);
+	void initEventList(int);
+	int isTeacher(std::string[], int);
 
+	//Editor Function
 
+	
+	void editor();
 	void printEvents();
 };

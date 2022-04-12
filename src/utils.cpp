@@ -37,6 +37,30 @@ int dowStrToInt(std::string d) {
 	
 }
 
+
+void moveCursor(int x, int y) {
+	if (x == 0) {
+		printf("\33[H\33[%dB\33[%dC", y, x-1);
+	}
+	else if (y == 0) {
+		printf("\33[H\33[%dB\33[%dC", y-1, x);
+	}
+	else printf("\33[H\33[%dB\33[%dC", y, x);
+	
+}
+void clearEx(int numOfLines) {
+	if (numOfLines == 0) {
+		printf_s("\33[H\33[0J");
+		for (int i = 0; i < 300; i++) {
+			printf("\33 M");
+		}
+		printf("\33[H\33[0J");
+	}
+	else {
+		printf("\33[100A\33[100D");
+		printf("\33[H\33[%dB\33[0J", numOfLines);
+	}
+}
 char* sToLower(std::string x) {
 	char c[20];
 	x.copy(c, x.size(), 0);

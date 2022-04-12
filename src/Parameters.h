@@ -34,7 +34,7 @@ public:
 	}
 	~Parameters();
 
-	void assignFromCSV();
+	bool assignFromCSV();
 	int findMatchingIndex(std::string);
 
 
