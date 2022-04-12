@@ -3,6 +3,8 @@
 #include "Attendant.h"
 #include "Room.h"
 
+//Matvey Regentov
+
 class Event;
 std::ostream& operator<<(std::ostream& out_stream, const Event& evt);
 

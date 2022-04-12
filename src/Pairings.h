@@ -5,6 +5,9 @@
 #define ALL 255
 #define NPOS std::string::npos
 
+//Joshua Rice
+
+
 class Pairings : public KeyNav{
 private:
 	Event* eventList[MAX_EVENTS];

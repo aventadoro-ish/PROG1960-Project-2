@@ -5,6 +5,8 @@
 /********************************************************************/
 
 
+//Matvey Regentov
+
 Attendant::Attendant() {
     name = "John Doe";
     participantCount = 0;
