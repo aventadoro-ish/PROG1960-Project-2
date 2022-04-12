@@ -5,6 +5,8 @@ class Attendant {
 private:
 	std::string name;
 	int participantCount;
+	int refCount;
+	int nHoursArr[7];
 
 public:
 	Attendant();
@@ -18,6 +20,18 @@ public:
 	virtual void setParticipantCount(int participantCount);
 
 	virtual std::string strRepr() const;
+
+	int incRefCount() {	return ++refCount; }
+	int decRefCount() { return --refCount; }
+	int getRefCount() { return refCount;  }
+
+	int getNBusyHoursOnDay(DaysOfWeek day);
+	int getNBusyHoursOnDay(int day);
+	int incNHoursOnDay(int day) { return ++nHoursArr[day]; }
+	int dayNHoursOnDay(int day) { return --nHoursArr[day]; }
+
+	static int instCount; // TODO: temp var for testing
+
 
 };
 

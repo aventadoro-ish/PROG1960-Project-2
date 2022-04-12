@@ -15,7 +15,11 @@ Event::~Event() {
 	//delete[] attendants;	// this: C4154 deletion of an array expression; conversion to pointer supplied
 	//delete[] &attendants; // does not give a warning, but still crashes the program
 	for (int i = 0; i < currentAttCount; ++i) {
-		delete attendants[i];
+		if (attendants[i]->getRefCount() > 1) {
+			attendants[i]->decRefCount();
+		} else {
+			delete attendants[i];
+		}
 	}
 }
 
@@ -79,6 +83,12 @@ void Event::appendAttendant(std::string name, int partCount) {
 	currentAttCount++;
 }
 
+void Event::changeAttendantPtr(int idx, Attendant* ptr) {
+	delete attendants[idx];
+	attendants[idx] = ptr;
+}
+
+
 std::ostream& operator<<(std::ostream& out_stream, const Event& evt) {
 	out_stream << "Event:" << evt.getName() << " (" << evt.getHours() << "h): " << evt.getAttendantNamesStr();
 	return out_stream;
@@ -108,4 +118,16 @@ void Event::setRoomReq(RoomType roomReq) {
     this->roomReq = roomReq;
 }
 
+int Event::getTotalParticipants() {
+	int totalParticipantCount = 0;
+	for (int i = 0; i < currentAttCount; i++) {
+		totalParticipantCount += attendants[i]->getParticipantCount();
+	}
+
+	return totalParticipantCount;
+}
+
+std::string Event::strRepr() {
+	return std::string("Event:" + name + " (" + std::to_string(hours) + "h): " + getAttendantNamesStr());
+}
 

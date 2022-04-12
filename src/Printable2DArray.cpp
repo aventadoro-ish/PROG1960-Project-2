@@ -19,7 +19,11 @@ void Printable2DArray::print(std::ostream& ostr, bool addHeaders, char hSep, cha
 		}
 
 		for (int x = 0; x < xMax; x++) {
-			ostr << getCellAsStr(x, y) << hSep;
+			if (x == xMax - 1) {
+				ostr << getCellAsStr(x, y);
+			} else {
+				ostr << getCellAsStr(x, y) << hSep;
+			}
 		}
 		ostr << vSep;
 	}
