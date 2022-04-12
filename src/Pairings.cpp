@@ -6,40 +6,41 @@ enum {
 	CLASS_STREAM = 2,
 };
 
-Pairings::Pairings(int xNumEvents) {
-	numEvents = xNumEvents;
-	eventList = new Event[numEvents];
+Pairings::Pairings() {
+	numEvents = 0;
+	std::cout << "EVENT LIST UNINITIALIZED" << std::endl;
+}
+Pairings::Pairings(CSV& file) {
+	assignFromCSV(file);
 }
 Pairings::~Pairings() {
 	delete[] eventList;
 }
 
-void Pairings::assignFromCSV() {
-	initEventList(getRowCount());
+void Pairings::assignFromCSV(CSV& file) {
+	initEventList(file.getRowCount());
 	
-	for (int i = 0; i < getRowCount(); i++) {
-		std::string* buffer = getRowData(i);
+	for (int i = 0; i < file.getRowCount(); i++) {
+		std::string* buffer = file.getRowData(i);
 		eventList[i].setName(buffer[0]);
 		eventList[i].setHours(std::stoi(buffer[1]));
 		eventList[i].setRoomReq(RoomType::LECTURE_HALL);
-		assignAttendants(buffer, i);
-	}
-}
-void Pairings::assignAttendants(std::string buffer[], int eventIndex) {
-	for (int k = 3; k < getColCount(); k++)
-	{
-		switch (isTeacher(buffer, k)) {
-		case 0:
-			break;
-		case 1:
-			eventList[eventIndex].appendAttendant(buffer[k], 0);
-			break;
-		case 2:
-			eventList[eventIndex].appendAttendant(buffer[k], stoi(buffer[k + 1]));
-			k++;
+		for (int k = 3; k < file.getColCount(); k++)
+		{
+			switch (isTeacher(buffer, k)) {
+			case 0:
+				break;
+			case 1:
+				eventList[i].appendAttendant(buffer[k], 0);
+				break;
+			case 2:
+				eventList[i].appendAttendant(buffer[k], stoi(buffer[k + 1]));
+				k++;
+			}
 		}
-		
 	}
+
+
 }
 
 int Pairings::isTeacher(std::string buffer[], int index) {
@@ -54,21 +55,32 @@ int Pairings::isTeacher(std::string buffer[], int index) {
 }
 
 
-
-void Pairings::initEventList() {
-	numEvents = getRowCount();
-	eventList = new Event[numEvents];
-
-}
 void Pairings::initEventList(int x) {
 	numEvents = x;
 	eventList = new Event[numEvents];
 }
 void Pairings::printEvents(){
 	for (int i = 0; i < numEvents; i++) {
-		std::cout << eventList[i].getName() << "\n";
-		std::cout << eventList[i].getHours() << "\n";
-		std::cout << eventList[i].getCurrentAttCount() << "\n";
-		std::cout << eventList[i].getAttendantNamesStr() << "\n";
+		std::cout << i + 1 << ". ";
+		std::cout << eventList[i].getName() << " | ";
+		std::cout << eventList[i].getHours() << " | ";
+		std::cout << eventList[i].getCurrentAttCount() << " | ";
+		std::cout << eventList[i].getAttendantNamesStr() << " | ";
+		std::cout << roomTypeToString(eventList[i].getRoomReq());
+		std::cout << " | ";
+		std::cout << std::endl;
 	}
+}
+
+
+void Pairings::editor() {
+	clearEx(3);
+	int originX = 0;
+	int originY = 3;
+	printEvents();
+	
+	setCursX(originX);
+	setCursY(originY);
+	
+
 }

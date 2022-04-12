@@ -3,7 +3,6 @@
 Event::Event() {
 	name = "";
 	hours = 0;
-	std::cout << "event constructor";
 	for (int i = 0; i < MAX_ATTENDANTS; ++i) {
 		attendants[i] = NULL;
 	}

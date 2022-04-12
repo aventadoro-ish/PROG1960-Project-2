@@ -1,12 +1,21 @@
 #pragma once
 #include "utils.h"
-#include "Printable2DArray.h"
 #include <conio.h>	
 
-typedef struct coord {
-	int x;
-	int y;
+enum KEYCODES{
+	UP = 72,
+	DOWN = 80,
+	LEFT = 75,
+	RIGHT = 77,
+	ENTER = 13,
+	BACKSPACE = 8,
+	DELETE = 83
 };
+
+typedef struct{
+	unsigned x;
+	unsigned y;
+}coord;
 
 class KeyNav {
 private:
@@ -21,32 +30,31 @@ public:
 	KeyNav(int, int, std::string, int = 0, int = 0);//BUFF xy, ForbidKeys, CURSOR xy
 	~KeyNav();
 
-	int keyParser();
-	int virtual selectResult(int) = 0;
+	int keyParser(int, bool);
+	
 
 	//MODIFY FORBIDDEN KEYS
-	void getForbidKeys();
-	void setForbidKeys(bool append);
-	void letterForbid(bool append);
-	void numForbid(bool append);
-	void resetForbid();
+	bool isForbidden(int);
+	std::string getForbidKeys();
+	void setForbidKeys(std::string, bool append);
+	void resetForbids();
 
+	void letterForbid(bool);
+	void numForbid(bool);
+	
+	//Check for Duplicates?
+	
 	//TEXT BUFFER
-	int getBuffX();
-	void setBuffX(int);
-
-	int getBuffY();
-	void setBuffY(int);
-
-	void printBuffer();
-	std::string bufferResults();
+	void redrawBuffer();
+	std::string getTextBuffer();
+	void clearTextBuffer();
+	void setBuffPos(int, int);
 
 	//CURSOR POSITION
 	int getCursX();
-	void setCursX(int);
+	int getCursY();
 
-	void getCursY();
 	void setCursY(int);
-
+	void setCursX(int);
 
 };

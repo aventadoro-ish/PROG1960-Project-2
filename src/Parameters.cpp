@@ -11,35 +11,46 @@ Parameters::~Parameters() {
 
 }
 
-void Parameters::assignFromCSV() {
+bool Parameters::assignFromCSV() {
     int index;
     std::string* buffer;
     int dayOfWeek;
-    
-    index = (findMatchingIndex("rooms") + 1);
-    while (true) {
-       buffer = getRowData(index);
-       if (buffer[1] == "") break;
-       Room temp = Room(buffer[0], stoi(buffer[2]), buffer[1][0]);
-       appendRoom(temp);
-       index++;
+
+    if ((index = (findMatchingIndex("rooms") >= 0))) {
+        index++;
+        while (true) {
+            buffer = getRowData(index);
+            if (buffer[1] == "") break;
+            Room temp = Room(buffer[0], stoi(buffer[2]), buffer[1][0]);
+            appendRoom(temp);
+            index++;
+        }
+    }
+    else {
+        std::cout << "ERROR: ROOMS INDEX NOT FOUND. (Parameters::assignFromCSV function)";
+        return false;
     }
 
-    index = (findMatchingIndex("oph") + 1);
-    while (true) {
-        buffer = getRowData(index);
-        if (buffer[1] == "") break;
-        dayOfWeek = dowStrToInt(buffer[0]);
-        oph.setStartTime(dayOfWeek, stoi(buffer[1]));
-        oph.setEndTime(dayOfWeek, stoi(buffer[2]));
+    if (index = (findMatchingIndex("oph"))) {
         index++;
+        while (true) {
+            buffer = getRowData(index);
+            if (buffer[1] == "") break;
+            dayOfWeek = dowStrToInt(buffer[0]);
+            oph.setStartTime(dayOfWeek, stoi(buffer[1]));
+            oph.setEndTime(dayOfWeek, stoi(buffer[2]));
+            index++;
+        }
+    }
+    else {
+        std::cout << "ERROR: OPH INDEX NOT FOUND. (Parameters::assignFromCSV function)";
+        return false;
     }
     //-------------------------------//
     // ADD NEWINFO ONCE STANDARDIZED //
     //-------------------------------//
-    
-}
 
+}
 
 int Parameters::findMatchingIndex(std::string heading) {
     char* target;
