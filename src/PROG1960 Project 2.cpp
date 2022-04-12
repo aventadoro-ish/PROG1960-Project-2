@@ -11,7 +11,7 @@ int mainMenu();
 using namespace std;
 
 int main() {
-	playground();
+	//playground();
 	cout << "\n\n\n\n\n";
 	return mainMenu();
 
@@ -20,37 +20,36 @@ int main() {
 int mainMenu() {
 	// open params
 	std::string paramFileName;
-	{
-		Parameters para;
-		for (;;) {
+	
+	
+	for (;;) {
+		try {
+			cout << "Enter parameter filename: ";
+			cin >> paramFileName;
+			Parameters para = Parameters(paramFileName);
+			break;
 
-			try {
-				cout << "Enter parameter filename: ";
-				cin >> paramFileName;
-				para = Parameters(paramFileName);
-				break;
 
-
-			} catch (const std::exception& e) {
-				cout << e.what() << "\nRetry? (y/n) ";
-				char c;
-				cin >> c;
-				if (!(c == 'y' || c == 'Y')) return 0;
-				cin.ignore(1000, '\n');
-			}
+		} catch (const std::exception& e) {
+			cout << e.what() << "\nRetry? (y/n) ";
+			char c;
+			cin >> c;
+			if (!(c == 'y' || c == 'Y')) return 0;
+			cin.ignore(1000, '\n');
 		}
 	}
+	
 	
 	// open pairings
 	std::string pairFile;
 	{
-		Pairings pairings;
+		
 		for (;;) {
 			try {
 				cout << "Enter pairings filename: ";
 				cin >> pairFile;
 				CSV pairCSV(pairFile);
-				pairings = Pairings(pairCSV);
+				Pairings pairings = Pairings(pairCSV);
 				break;
 
 
@@ -64,7 +63,9 @@ int mainMenu() {
 		}
 	}
 
-	
+	Parameters para1 = Parameters(paramFileName);
+	CSV pairCSV1(pairFile);
+	Pairings pairings1 = Pairings(pairCSV1);
 
 	cout << "Edit events? (y/n) ";
 	char c;
@@ -74,9 +75,7 @@ int mainMenu() {
 		// TODO implement
 	}
 
-	Parameters para1 = Parameters(paramFileName);
-	CSV pairCSV1(pairFile);
-	Pairings pairings1 = Pairings(pairCSV1);
+	
 
 
 	cout << "How many schedule variants to output? (recomended 1-4) ";
@@ -88,7 +87,6 @@ int mainMenu() {
 	for (int i = 0; i < pairings1.getNEvents(); i++) {
 		sch.appendEvent(*evts[i]);
 	}
-
 	sch.setErrorStream(std::cout);
 
 	sch.validateInput();

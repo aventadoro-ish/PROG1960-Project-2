@@ -14,7 +14,7 @@ Event::Event() {
 }
 
 Event::~Event() {
-	std::cout << "!Event";
+	std::cout << "!Event" << name;
 
 
 	//delete[] attendants;	// this: C4154 deletion of an array expression; conversion to pointer supplied

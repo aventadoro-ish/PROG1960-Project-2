@@ -26,8 +26,8 @@ Pairings::Pairings(CSV& file) {
 }
 
 Pairings::~Pairings() {
-	for (int i = 0; i < getNEvents(); i++) {
-		std::cout << "*";
+	for (int i = 0; i < getNEvents()-1; i++) {
+		std::cout << "pair destorys !event " << eventList[i]->getName() <<std::endl;
 		delete eventList[i];
 	}
 }

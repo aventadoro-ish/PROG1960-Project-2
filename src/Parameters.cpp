@@ -29,9 +29,9 @@ Parameters::Parameters(std::string fileExt) : CSV(fileExt) {
 
 
 Parameters::~Parameters() {
-    for (int i = 0; i < nRooms; i++) {
-        delete rooms[i];
-    }
+    //for (int i = 0; i < nRooms; i++) {
+    //    delete rooms[i];
+    //}
     delete rooms;
 }
 
