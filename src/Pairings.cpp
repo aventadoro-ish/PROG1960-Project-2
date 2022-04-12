@@ -27,7 +27,6 @@ Pairings::Pairings(CSV& file) {
 
 Pairings::~Pairings() {
 	for (int i = 0; i < getNEvents()-1; i++) {
-		std::cout << "pair destorys !event " << eventList[i]->getName() <<std::endl;
 		delete eventList[i];
 	}
 }
@@ -37,11 +36,15 @@ void Pairings::assignFromCSV(CSV& file) {
 	
 	for (int i = 0; i < file.getRowCount(); i++) {
 		std::string* buffer = file.getRowData(i);
-		std::cout << buffer[0] << "; " << buffer[1] << "; " << buffer[2] << "; " << buffer[3] << "\n";
+		//std::cout << buffer[0] << "; " << buffer[1] << "; " << buffer[2] << "; " << buffer[3] << "\n";
 
 		eventList[i]->setName(buffer[0]);
 		eventList[i]->setHours(std::stoi(buffer[1]));
-		eventList[i]->setRoomReq(RoomType::LECTURE_HALL); // TODO: lecture_hall
+		//std::cout << buffer[0] << " - " << buffer[2][0] << " " << buffer[2] << std::endl;
+
+		eventList[i]->setRoomReq(charToRoomType(buffer[2][0]));
+
+		//eventList[i]->setRoomReq(RoomType::LECTURE_HALL); // TODO: lecture_hall
 
 
 		for (int k = 3; k < file.getColCount()-1; k++) {

@@ -94,7 +94,7 @@ int mainMenu() {
 	sch.syncAttendantReferences();
 
 	for (int i = 0; i < scheduleVariants; i++) {
-		sch.generateSchedule(1);
+		sch.generateSchedule(i+1);
 	}
 	
 
