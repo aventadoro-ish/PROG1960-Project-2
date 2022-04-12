@@ -37,6 +37,7 @@ void Pairings::assignFromCSV(CSV& file) {
 	for (int i = 0; i < file.getRowCount(); i++) {
 		std::string* buffer = file.getRowData(i);
 		//std::cout << buffer[0] << "; " << buffer[1] << "; " << buffer[2] << "; " << buffer[3] << "\n";
+		std::cout << buffer[0] << " " << buffer[1] << " ";
 
 		eventList[i]->setName(buffer[0]);
 		eventList[i]->setHours(std::stoi(buffer[1]));
@@ -45,7 +46,6 @@ void Pairings::assignFromCSV(CSV& file) {
 		eventList[i]->setRoomReq(charToRoomType(buffer[2][0]));
 
 		//eventList[i]->setRoomReq(RoomType::LECTURE_HALL); // TODO: lecture_hall
-
 
 		for (int k = 3; k < file.getColCount()-1; k++) {
 			if (k == file.getColCount()) { // quick and dirty fix
@@ -60,10 +60,12 @@ void Pairings::assignFromCSV(CSV& file) {
 				eventList[i]->appendAttendant(buffer[k], 0);
 				break;
 			case 2:
+				std::cout << buffer[k + 1] << " ";
 				eventList[i]->appendAttendant(buffer[k], stoi(buffer[k + 1]));
 				k++;
 			}
 		}
+		std::cout << std::endl;
 	}
 }
 
