@@ -93,9 +93,10 @@ void Pairings::printEvent(int index){
 
 
 
-void Pairings::editor() {
+bool Pairings::editor() {
 	clearEx(OFFSET);
 	printEvent(ALL);
+	std::cout << "\nReturn to Main Menu";
 	setCursX(0);
 	setCursY(OFFSET);
 	int i = selectEvent(OFFSET);
@@ -110,7 +111,7 @@ void Pairings::editor() {
 		std::cin >> buffer;
 		eventList[i].setName(buffer);
 		clearEx(OFFSET);
-		break;
+		return true;
 	case 1:
 		std::cout << "Current hours per week:\n";
 		std::cout << eventList[i].getHours() << "\n\n";
@@ -120,7 +121,7 @@ void Pairings::editor() {
 		eventList[i].setHours(hours);
 		clearEx(OFFSET);
 		std::cout << eventList[i].getHours();
-		break;
+		return true;
 	case 2:
 		std::cout << "Current room type required:\n";
 		std::cout << roomTypeToString(eventList[i].getRoomReq());
@@ -136,7 +137,7 @@ void Pairings::editor() {
 			eventList[i].setRoomReq(intToRoomType(getCursY() - 7));
 			std::cout << roomTypeToString(eventList[i].getRoomReq());
 		}
-		break;
+		return true;
 	case 3:
 		//for (int i = 0; i < eventList[i].getCurrentAttCount(); i++) {
 		//	eventList[i].getAttendantNamesStr(i);
@@ -153,6 +154,10 @@ void Pairings::editor() {
 		//	eventList[i].changeAttendantName(getCursY() - OFFSET, name);
 		//}
 		break;
+	case 5:
+		return false;
+	default:
+		return true;
 	}
 }
 
