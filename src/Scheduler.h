@@ -6,6 +6,8 @@
 
 #include <ostream>
 
+//Matvey Regentov
+
 class Scheduler {
 private:
 	Parameters* param;

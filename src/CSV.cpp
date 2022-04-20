@@ -1,6 +1,9 @@
 #include "CSV.h"
 #define NPOS -1
 
+
+/// Joshua Rice
+
 CSV::CSV() {
 	fileName = "NO FILE NAME ASSIGNED";
 }

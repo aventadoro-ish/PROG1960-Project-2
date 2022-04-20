@@ -1,5 +1,6 @@
 #include "Room.h"
 
+//Matvey Regentov
 
 RoomType charToRoomType(char c) {
 	c |= 0b00100000; // decapitalize

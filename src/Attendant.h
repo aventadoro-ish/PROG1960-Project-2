@@ -1,6 +1,8 @@
 #pragma once
 #include "utils.h"
 
+//Matvey Regentov
+
 class Attendant {
 private:
 	std::string name;

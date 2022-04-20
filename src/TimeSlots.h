@@ -5,6 +5,10 @@
 #include "OpHours.h"
 #include "Printable2DArray.h"
 
+
+//Matvey Regentov
+
+
 class TimeSlot {
 private:
 	int startTime;
