@@ -1,43 +1,27 @@
-# Student Grouping Progam
+# Timetable Generator
 Authors: Josh and Mat<br>
 Developed as PROG1960 Project 2<br>
 Highly not recomended to use in any other setting.
-
-Spreadsheet:
-https://docs.google.com/spreadsheets/d/1vrPotIOJp3yOAVOMteReJWZpXDEjCI-o6P_Rk3fFPxI
 
 ---
 
 # Usage
 The primary inputs of the program are two files:
+- **parameters file** (_.csv_): lists working hours, availible rooms, their type and capacity ![image](https://user-images.githubusercontent.com/81328778/229381020-ac0a34f7-7893-4b6f-9693-33c615954669.png)
+- **events file** (_.csv_): lists all the classes to be scheduled with room requirements, weekly hours, and attendants (instructors and student streams) ![image](https://user-images.githubusercontent.com/81328778/229381044-7cc791b4-ab8e-4c6f-b84d-0679513fac92.png)
 
-## Parameters.csv
-Includes info about working hours, availible rooms.<br>
-TODO: support for other parameters: early/late classes preference, etc.<br>
 
-### Example file:
-ROOMS,,<br>
-Lecture Hall A,Lecture Hall,50<br>
-Lecture Hall B,L,170<br>
-Computer Lab A,c,50<br>
-Tech Lab A,t,50<br>
-Sports Hall A,s,50<br>
-,,<br>
-,,<br>
-WORK DAYS,,<br>
-MON,8,12<br>
-TUE,8,12<br>
-THU,8,15<br>
-FRI,10,12<br>
+On program launch, you will be prompted to enter relative paths to parameters file and events file.
+You can use included examples from Examples/ folder.
+
+The program will then list events/classes to be scheduled with total number of hours per week and room capacity requirement.
+Optinally, you can edit those parameters.
+Then you will be asked how many different schedule variants to output.
+
+The **output** is a set of _.csv_ schedule files. <br>
+Rows represent timeslots, columns represent classroom.
+The intersection is the scheduled event with professors/student streams that attend that event.
+![image](https://user-images.githubusercontent.com/81328778/229380983-59f2d320-0da1-4cd3-ba38-2b49fd26bf71.png)
 
 ---
 
-## Events.csv
-Lists all the classes to be scheduled with room requirements, weekly hours, and attendants (instructors and student streams).
-
-### Example file:
-AC Repair Theory,5,l,Hameed,CET L1,50<br>
-AC Circuits,5,L,Hameed,CET,30,EET,21<br>
-AC Circuits,5,Technical Lab,Jane,CET,30,EET,21<br>
-Ladders 101,5,C,Professor Professorson,CET,45,,<br>
-Naptime,3,S,Reggie,EET,21,,<br>
